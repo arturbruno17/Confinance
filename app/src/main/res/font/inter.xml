@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <font
+        android:font="@font/inter_regular"
+        android:fontWeight="400"
+        android:fontStyle="normal"
+        tools:targetApi="o" />
+
+    <font
+        android:font="@font/inter_medium"
+        android:fontWeight="500"
+        android:fontStyle="normal"
+        tools:targetApi="o" />
+
+    <font
+        android:font="@font/inter_bold"
+        android:fontWeight="700"
+        android:fontStyle="normal"
+        tools:targetApi="o" />
+</font-family>

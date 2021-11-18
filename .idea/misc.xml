@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/font-v26/roboto_slab.xml" value="0.23125" />
+        <entry key="app/src/main/res/font/roboto_slab.xml" value="0.23125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20104166666666667" />
       </map>
     </option>
