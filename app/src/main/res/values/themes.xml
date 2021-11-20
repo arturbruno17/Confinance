@@ -28,6 +28,9 @@
         <item name="textAppearanceCaption">@style/TextAppearance.Confinance.Caption</item>
         <item name="textAppearanceButton">@style/TextAppearance.Confinance.Button</item>
         <item name="textAppearanceOverline">@style/TextAppearance.Confinance.Overline</item>
+
+        <!-- Button style -->
+        <item name="materialButtonStyle"> @style/Widget.Confinance.Button</item>
     </style>
 
 

@@ -2,68 +2,105 @@
 <resources>
     <!-- TextAppearance -->
     <style name="TextAppearance.Confinance.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_bold</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
         <item name="android:textSize">93sp</item>
+        <item name="android:textColor">@color/black_text</item>
     </style>
+
     <style name="TextAppearance.Confinance.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_bold</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
         <item name="android:textSize">58sp</item>
+        <item name="android:textColor">@color/black_text</item>
     </style>
+
     <style name="TextAppearance.Confinance.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_bold</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
         <item name="android:textSize">47sp</item>
+        <item name="android:textColor">@color/black_text</item>
     </style>
+
     <style name="TextAppearance.Confinance.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_bold</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
         <item name="android:textSize">33sp</item>
+        <item name="android:textColor">@color/black_text</item>
     </style>
+
     <style name="TextAppearance.Confinance.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
         <item name="android:textSize">23sp</item>
+        <item name="android:textColor">@color/black_text</item>
     </style>
+
     <style name="TextAppearance.Confinance.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
         <item name="android:textSize">19sp</item>
+        <item name="android:textColor">@color/black_text</item>
     </style>
+
     <style name="TextAppearance.Confinance.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black_text</item>
     </style>
+
     <style name="TextAppearance.Confinance.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black_text</item>
     </style>
+
     <style name="TextAppearance.Confinance.Body1" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
         <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black_text</item>
     </style>
+
     <style name="TextAppearance.Confinance.Body2" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
         <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/black_text</item>
     </style>
+
     <style name="TextAppearance.Confinance.Button" parent="TextAppearance.MaterialComponents.Button">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
         <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/black_text</item>
     </style>
+
     <style name="TextAppearance.Confinance.Caption" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
         <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/black_text</item>
     </style>
+
     <style name="TextAppearance.Confinance.Overline" parent="TextAppearance.MaterialComponents.Overline">
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
         <item name="android:textSize">9sp</item>
+        <item name="android:textColor">@color/black_text</item>
+    </style>
+
+    <!-- Button style -->
+    <style name="Widget.Confinance.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">?attr/colorSecondary</item>
+        <item name="rippleColor">?attr/colorSecondaryVariant</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <style name="Widget.Confinance.Button.Icon">
+        <item name="iconGravity">end</item>
+        <item name="iconPadding">0dp</item>
     </style>
 </resources>
