@@ -1,5 +1,6 @@
 package me.arturbruno.confinance.views.learning
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import me.arturbruno.confinance.databinding.FragmentLearningScreen1Binding
+import me.arturbruno.confinance.views.DashboardActivity
 import me.arturbruno.confinance.viewsmodels.LearningViewModel
 
 class LearningScreen1Fragment : Fragment() {
@@ -23,7 +25,8 @@ class LearningScreen1Fragment : Fragment() {
     ): View {
 
         binding.skip.setOnClickListener {
-            // TODO Skip to DashBoardActivity
+            startActivity(Intent(requireContext(), DashboardActivity::class.java))
+            requireActivity().finish()
         }
 
         binding.goForward.setOnClickListener {
