@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Confinance</string>
+    <string name="control_your_life">Controle sua vida financeira</string>
+    <string name="learning_body1_string">Um aplicativo feito para você controlar facilmente as suas economias.</string>
+    <string name="go_forward">Avançar</string>
+    <string name="skip_to_dashboard">Pular para o painel</string>
+    <string name="create_wallets">Crie carteiras</string>
+    <string name="learning_body2_string">Cadastre seus cartões ou contas de banco para monitorá-las quando quiser!</string>
+    <string name="start">Começar</string>
 </resources>
