@@ -1,13 +1,20 @@
 package me.arturbruno.confinance.views.learning
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import me.arturbruno.confinance.databinding.ActivityLearningBinding
+import me.arturbruno.confinance.views.DashboardActivity
 import me.arturbruno.confinance.viewsmodels.LearningViewModel
 
 class LearningActivity : AppCompatActivity() {
+
+    companion object {
+        private const val FIRST_STARTUP = "first_startup"
+    }
 
     private val binding: ActivityLearningBinding by lazy {
         ActivityLearningBinding.inflate(layoutInflater)
@@ -18,6 +25,19 @@ class LearningActivity : AppCompatActivity() {
     private lateinit var viewPager2: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val sharedPreferences = getPreferences(Context.MODE_PRIVATE)
+
+        if (sharedPreferences.getBoolean(FIRST_STARTUP, true)) {
+            sharedPreferences.edit().apply {
+                putBoolean(FIRST_STARTUP, false)
+                apply()
+            }
+        } else {
+            startActivity(Intent(this, DashboardActivity::class.java))
+            finish()
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
