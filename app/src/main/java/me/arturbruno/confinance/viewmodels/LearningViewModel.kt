@@ -1,4 +1,4 @@
-package me.arturbruno.confinance.viewsmodels
+package me.arturbruno.confinance.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

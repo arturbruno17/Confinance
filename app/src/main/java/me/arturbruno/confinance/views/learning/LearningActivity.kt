@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import me.arturbruno.confinance.databinding.ActivityLearningBinding
 import me.arturbruno.confinance.views.DashboardActivity
-import me.arturbruno.confinance.viewsmodels.LearningViewModel
+import me.arturbruno.confinance.viewmodels.LearningViewModel
 
 class LearningActivity : AppCompatActivity() {
 
