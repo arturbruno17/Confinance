@@ -7,4 +7,12 @@
     <string name="create_wallets">Crie carteiras</string>
     <string name="learning_body2_string">Cadastre seus cartões ou contas de banco para monitorá-las quando quiser!</string>
     <string name="start">Começar</string>
+    <string name="your_total_balance">Seu saldo total</string>
+    <string name="income">Rendimento</string>
+    <string name="expenses">Despesas</string>
+    <string name="your_wallets">Suas carteiras</string>
+    <string name="transactions">Transações</string>
+    <string name="create_account_or_card">Criar conta bancária ou cartão</string>
+    <string name="create_bank_account">Criar conta</string>
+    <string name="create_credit_card">Criar cartão</string>
 </resources>

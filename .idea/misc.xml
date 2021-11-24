@@ -7,15 +7,23 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2171875" />
         <entry key="app/src/main/res/drawable/circle.xml" value="0.22" />
         <entry key="app/src/main/res/drawable/ic_amico.xml" value="0.203125" />
+        <entry key="app/src/main/res/drawable/ic_baseline_account_balance_wallet_24.xml" value="0.31435897435897436" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.30925925925925923" />
+        <entry key="app/src/main/res/drawable/ic_baseline_credit_card_24.xml" value="0.31435897435897436" />
+        <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.31927083333333334" />
         <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.31927083333333334" />
+        <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_up_24.xml" value="0.31927083333333334" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2171875" />
+        <entry key="app/src/main/res/drawable/text_fab_background.xml" value="0.30925925925925923" />
         <entry key="app/src/main/res/font-v26/roboto_slab.xml" value="0.23125" />
         <entry key="app/src/main/res/font/inter.xml" value="0.28425925925925927" />
         <entry key="app/src/main/res/font/roboto_slab.xml" value="0.23125" />
-        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20104166666666667" />
         <entry key="app/src/main/res/layout/fragment_learning_screen1.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_learning_screen2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/transaction_item.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/wallet_card.xml" value="0.25" />
       </map>
     </option>
   </component>
