@@ -39,7 +39,8 @@ android {
 dependencies {
     def lifecycle_version = "2.4.0"
     def fragment_version = "1.4.0"
-    
+    def room_version = "2.3.0"
+
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
@@ -54,5 +55,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     // Fragment
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 
 }
