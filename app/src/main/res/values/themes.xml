@@ -31,6 +31,10 @@
 
         <!-- Button style -->
         <item name="materialButtonStyle"> @style/Widget.Confinance.Button</item>
+
+        <!-- TextInputLayout style -->
+        <item name="textInputStyle">@style/Widget.Confinance.TextInputLayout.OutlinedBox</item>
+        <item name="android:colorControlActivated">@color/dark_gray</item>
     </style>
 
 

@@ -1,5 +1,6 @@
 package me.arturbruno.confinance.views
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -41,6 +42,9 @@ class DashboardActivity : AppCompatActivity() {
                 binding.fabCreateCard.startAnimation(hideButton)
                 false
             }
+        }
+        binding.fabCreateAccount.setOnClickListener {
+            startActivity(Intent(this, CreateBankAccountActivity::class.java))
         }
     }
 }

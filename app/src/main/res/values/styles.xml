@@ -103,4 +103,17 @@
         <item name="iconGravity">end</item>
         <item name="iconPadding">0dp</item>
     </style>
+
+    <!-- Text field style -->
+    <style name="Widget.Confinance.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/box_stroke_color_state_list</item>
+        <item name="android:textColorHint">@color/dark_gray</item>
+        <item name="hintTextColor">@color/black_text</item>
+    </style>
+
+    <style name="Widget.Confinance.TextInputLayout.OutlinedBox.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/box_stroke_color_state_list</item>
+        <item name="android:textColorHint">@color/dark_gray</item>
+        <item name="hintTextColor">@color/black_text</item>
+    </style>
 </resources>

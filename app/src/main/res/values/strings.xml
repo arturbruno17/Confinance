@@ -15,4 +15,12 @@
     <string name="create_account_or_card">Criar conta bancária ou cartão</string>
     <string name="create_bank_account">Criar conta</string>
     <string name="create_credit_card">Criar cartão</string>
+    <string name="account_information">Informações da conta</string>
+    <string name="name">Nome</string>
+    <string name="bank">Banco</string>
+    <string name="bank_type">Tipo de banco</string>
+    <string name="checking_account">Conta Corrente</string>
+    <string name="savings_account">Conta Poupança</string>
+    <string name="additional_information">Informações adicionais</string>
+    <string name="initial_balance">Saldo inicial</string>
 </resources>
