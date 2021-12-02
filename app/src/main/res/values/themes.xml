@@ -35,6 +35,9 @@
         <!-- TextInputLayout style -->
         <item name="textInputStyle">@style/Widget.Confinance.TextInputLayout.OutlinedBox</item>
         <item name="android:colorControlActivated">@color/dark_gray</item>
+
+        <!-- Material Calendar style-->
+        <item name="materialCalendarTheme">@style/ThemeOverlay.Confinance.DatePicker</item>
     </style>
 
 

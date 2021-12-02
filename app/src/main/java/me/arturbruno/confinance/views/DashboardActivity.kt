@@ -43,8 +43,13 @@ class DashboardActivity : AppCompatActivity() {
                 false
             }
         }
+
         binding.fabCreateAccount.setOnClickListener {
             startActivity(Intent(this, CreateBankAccountActivity::class.java))
+        }
+
+        binding.fabCreateCard.setOnClickListener {
+            startActivity(Intent(this, CreateCreditCardActivity::class.java))
         }
     }
 }

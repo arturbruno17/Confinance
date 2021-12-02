@@ -116,4 +116,19 @@
         <item name="android:textColorHint">@color/dark_gray</item>
         <item name="hintTextColor">@color/black_text</item>
     </style>
+
+    <!-- Material date picker -->
+    <style name="ThemeOverlay.Confinance.DatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/gray</item>
+        <item name="colorOnPrimary">@color/black_text</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black_text</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.Confinance.Button.TextButton.Dialog</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.Confinance.Button.TextButton.Dialog</item>
+    </style>
+
+    <style name="Widget.Confinance.Button.TextButton.Dialog" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/button_text_calendar</item>
+        <item name="rippleColor">@color/dark_gray</item>
+    </style>
 </resources>

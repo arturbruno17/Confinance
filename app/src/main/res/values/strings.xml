@@ -23,4 +23,8 @@
     <string name="savings_account">Conta Poupança</string>
     <string name="additional_information">Informações adicionais</string>
     <string name="initial_balance">Saldo inicial</string>
+    <string name="card_information">Informações do cartão</string>
+    <string name="limit">Limite</string>
+    <string name="due_date">Data de vencimento</string>
+    <string name="date">%d/%d/%d</string>
 </resources>
