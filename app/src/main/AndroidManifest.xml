@@ -11,6 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Confinance">
         <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name=".views.CreateCreditCardActivity"
+            android:exported="false" />
+        <activity
+            android:windowSoftInputMode="adjustResize"
             android:name=".views.CreateBankAccountActivity"
             android:exported="false" />
         <activity
