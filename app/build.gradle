@@ -58,7 +58,7 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
     // Room
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     // Kotlinx DateTime
     implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.3.1"
     // Hilt
