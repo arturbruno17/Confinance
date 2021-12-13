@@ -10,12 +10,12 @@ data class BankAccountAndBankTransactionHistoryAndInvoicePayment(
     @Embedded val bankAccount: BankAccount,
     @Relation(
         parentColumn = "id",
-        entityColumn = "bankId"
+        entityColumn = "bank_id"
     )
     val bankTransactionHistory: List<BankTransaction>?,
     @Relation(
         parentColumn = "id",
-        entityColumn = "accountId"
+        entityColumn = "account_id"
     )
     val invoicePayment: List<InvoicePayment>?
 )

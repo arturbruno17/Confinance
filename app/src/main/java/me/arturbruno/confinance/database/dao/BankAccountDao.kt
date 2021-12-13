@@ -20,5 +20,6 @@ interface BankAccountDao {
     fun getAllBankAccounts(): Flow<BankAccount>
 
     @Query("SELECT * FROM bank_account WHERE id = :bankId")
+    @Transaction
     fun getBankAccountWithTransactions(bankId: Long): Flow<BankAccountAndBankTransactionHistoryAndInvoicePayment>
 }

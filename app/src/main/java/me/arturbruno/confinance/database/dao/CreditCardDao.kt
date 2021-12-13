@@ -20,5 +20,6 @@ interface CreditCardDao {
     fun getAllCreditCards(): Flow<CreditCard>
 
     @Query("SELECT * FROM credit_card WHERE id = :cardId")
+    @Transaction
     fun getAllCreditCardsWithTransactions(cardId: Long): Flow<CreditCardAndCardPurchaseHistoryAndInvoicePayment>
 }

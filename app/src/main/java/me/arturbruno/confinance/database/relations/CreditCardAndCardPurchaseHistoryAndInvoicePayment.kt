@@ -10,12 +10,12 @@ data class CreditCardAndCardPurchaseHistoryAndInvoicePayment(
     @Embedded val creditCard: CreditCard,
     @Relation(
         parentColumn = "id",
-        entityColumn = "cardId"
+        entityColumn = "card_id"
     )
     val cardPurchaseHistory: List<CardPurchase>?,
     @Relation(
         parentColumn = "id",
-        entityColumn = "cardId"
+        entityColumn = "card_id"
     )
     val invoicePayment: List<InvoicePayment>?
 )
