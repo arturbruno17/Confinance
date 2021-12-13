@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import me.arturbruno.confinance.ConfinanceApplication
 import me.arturbruno.confinance.R
@@ -13,8 +14,10 @@ import me.arturbruno.confinance.models.AccountType
 import me.arturbruno.confinance.models.BankAccount
 import me.arturbruno.confinance.repositories.BankAccountRepository
 import java.lang.IllegalArgumentException
+import javax.inject.Inject
 
-class BankAccountViewModel(
+@HiltViewModel
+class BankAccountViewModel @Inject constructor(
     app: Application,
     private val repository: BankAccountRepository
 ) : AndroidViewModel(app) {
@@ -37,18 +40,6 @@ class BankAccountViewModel(
             AccountType.CHECKING_ACCOUNT
         } else {
             AccountType.SAVINGS_ACCOUNT
-        }
-    }
-
-    class Factory(private val app: Application, private val repository: BankAccountRepository) : ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(BankAccountViewModel::class.java))
-                return BankAccountViewModel(
-                    app,
-                    repository
-                ) as T
-            throw IllegalArgumentException("Unknown model")
         }
     }
 }

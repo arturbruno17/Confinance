@@ -5,21 +5,19 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import me.arturbruno.confinance.R
-import me.arturbruno.confinance.database.ConfinanceDatabase
 import me.arturbruno.confinance.databinding.ActivityCreateBankAccountBinding
-import me.arturbruno.confinance.repositories.BankAccountRepository
 import me.arturbruno.confinance.viewmodels.BankAccountViewModel
 
+@AndroidEntryPoint
 class CreateBankAccountActivity : AppCompatActivity() {
 
     private val binding: ActivityCreateBankAccountBinding by lazy {
         ActivityCreateBankAccountBinding.inflate(layoutInflater)
     }
 
-    private val viewModel by viewModels<BankAccountViewModel> {
-        BankAccountViewModel.Factory(application, BankAccountRepository(database = ConfinanceDatabase.getDatabase(applicationContext)))
-    }
+    private val viewModel: BankAccountViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
