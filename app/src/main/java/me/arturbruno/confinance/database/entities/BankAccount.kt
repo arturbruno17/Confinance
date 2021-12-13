@@ -7,7 +7,7 @@ import me.arturbruno.confinance.models.BankAccount
 
 @Entity(tableName = "bank_account")
 data class BankAccount(
-    @PrimaryKey val id: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     val name: String,
     val type: AccountType,
     val bank: String,

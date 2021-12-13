@@ -7,7 +7,7 @@ import me.arturbruno.confinance.models.BankTransaction
 
 @Entity(tableName = "bank_transaction_history")
 data class BankTransaction(
-    @PrimaryKey val id: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     val value: Double,
     val date: String,
     @ColumnInfo(name = "bank_id") val bankId: Long

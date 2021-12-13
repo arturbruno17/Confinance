@@ -7,7 +7,7 @@ import me.arturbruno.confinance.models.CreditCard
 
 @Entity(tableName = "credit_card")
 data class CreditCard(
-    @PrimaryKey val id: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     val name: String,
     val limit: Double,
     @ColumnInfo(name = "invoice_due_date") val invoiceDueDate: String,

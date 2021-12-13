@@ -7,7 +7,7 @@ import me.arturbruno.confinance.models.InvoicePayment
 
 @Entity(tableName = "invoice_payment")
 data class InvoicePayment(
-    @PrimaryKey val id: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     val value: Double,
     val date: String,
     @ColumnInfo(name = "card_id") val cardId: Long,

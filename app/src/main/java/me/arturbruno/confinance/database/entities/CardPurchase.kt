@@ -7,7 +7,7 @@ import me.arturbruno.confinance.models.CardPurchase
 
 @Entity(tableName = "card_purchase_history")
 data class CardPurchase(
-    @PrimaryKey val id: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     val value: Double,
     val date: String,
     @ColumnInfo(name = "card_id") val cardId: Long
