@@ -36,7 +36,7 @@
             app:layout_constraintTop_toBottomOf="@id/top_app_bar" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/name_input"
+            android:id="@+id/input_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -45,6 +45,7 @@
             app:layout_constraintTop_toBottomOf="@id/account_information">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -60,9 +61,10 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:hint="@string/bank"
-            app:layout_constraintTop_toBottomOf="@id/name_input">
+            app:layout_constraintTop_toBottomOf="@id/input_name">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_bank_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -84,6 +86,7 @@
             app:layout_constraintTop_toBottomOf="@id/input_bank">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/input_bank_type_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
@@ -105,7 +108,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/balance_input"
+            android:id="@+id/input_balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -114,6 +117,7 @@
             app:layout_constraintTop_toBottomOf="@id/additional_information">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_balance_edit_text"
                 android:layout_width="match_parent"
                 android:inputType="numberDecimal"
                 android:layout_height="wrap_content"
@@ -123,6 +127,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/create_account"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginHorizontal="16dp"
             android:paddingVertical="16dp"
