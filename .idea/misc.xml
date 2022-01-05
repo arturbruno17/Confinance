@@ -24,7 +24,7 @@
         <entry key="app/src/main/res/font/roboto_slab.xml" value="0.23125" />
         <entry key="app/src/main/res/layout/activity_create_bank_account.xml" value="0.19369369369369369" />
         <entry key="app/src/main/res/layout/activity_create_credit_card.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.15" />
+        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20104166666666667" />
         <entry key="app/src/main/res/layout/fragment_learning_screen1.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_learning_screen2.xml" value="0.1" />
