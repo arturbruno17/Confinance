@@ -17,7 +17,7 @@ interface CreditCardDao {
     suspend fun updateCreditCard(creditCard: CreditCard)
 
     @Query("SELECT * FROM credit_card")
-    fun getAllCreditCards(): Flow<CreditCard>
+    fun getAllCreditCards(): Flow<List<CreditCard>>
 
     @Query("SELECT * FROM credit_card WHERE id = :cardId")
     @Transaction
