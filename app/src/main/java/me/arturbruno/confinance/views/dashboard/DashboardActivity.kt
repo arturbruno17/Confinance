@@ -59,9 +59,12 @@ class DashboardActivity : AppCompatActivity() {
         setListeners()
 
         val walletsAdapter = WalletsAdapter()
-        binding.walletsList.layoutManager =
-            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        binding.walletsList.adapter = walletsAdapter
+        binding.walletsList.apply {
+            layoutManager = LinearLayoutManager(this@DashboardActivity, RecyclerView.HORIZONTAL, false)
+            adapter = walletsAdapter
+            addItemDecoration(WalletItemDecoration())
+        }
+
 
         viewModel.creditCards.observe(this) {
             viewModel.mixData()
