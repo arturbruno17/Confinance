@@ -17,4 +17,8 @@ class BankAccountRepository @Inject constructor(
             database.bankAccountDao().insertBankAccount(bankAccount)
         }
     }
+
+    suspend fun getAllBankAccounts() = withContext(defaultDispatcher) {
+        database.bankAccountDao().getAllBankAccounts()
+    }
 }

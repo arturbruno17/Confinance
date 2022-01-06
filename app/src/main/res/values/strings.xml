@@ -21,6 +21,7 @@
     <string name="bank_type">Tipo de banco</string>
     <string name="checking_account">Conta Corrente</string>
     <string name="savings_account">Conta Poupança</string>
+    <string name="credit_card">Cartão de Crédito</string>
     <string name="additional_information">Informações adicionais</string>
     <string name="initial_balance">Saldo inicial</string>
     <string name="card_information">Informações do cartão</string>

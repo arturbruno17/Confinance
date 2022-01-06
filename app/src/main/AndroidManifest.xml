@@ -20,7 +20,7 @@
             android:name=".views.CreateBankAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".views.DashboardActivity"
+            android:name=".views.dashboard.DashboardActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

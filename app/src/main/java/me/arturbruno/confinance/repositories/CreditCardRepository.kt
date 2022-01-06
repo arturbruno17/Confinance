@@ -17,4 +17,8 @@ class CreditCardRepository @Inject constructor(
             database.creditCardDao().insertCreditCard(creditCard)
         }
     }
+
+    suspend fun getAllCreditCards() = withContext(ioDispatcher) {
+        database.creditCardDao().getAllCreditCards()
+    }
 }

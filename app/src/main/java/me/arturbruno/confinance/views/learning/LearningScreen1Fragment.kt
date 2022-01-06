@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import me.arturbruno.confinance.databinding.FragmentLearningScreen1Binding
-import me.arturbruno.confinance.views.DashboardActivity
+import me.arturbruno.confinance.views.dashboard.DashboardActivity
 import me.arturbruno.confinance.viewmodels.LearningViewModel
 
 class LearningScreen1Fragment : Fragment() {

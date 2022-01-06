@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import me.arturbruno.confinance.databinding.FragmentLearningScreen2Binding
-import me.arturbruno.confinance.views.DashboardActivity
+import me.arturbruno.confinance.views.dashboard.DashboardActivity
 
 class LearningScreen2Fragment : Fragment() {
 
