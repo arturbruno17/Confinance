@@ -5,10 +5,13 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
         app:cardCornerRadius="8dp"
         app:strokeWidth="1dp"
         app:strokeColor="@color/dark_gray"
-        app:cardElevation="0dp">
+        app:cardElevation="0dp"
+        android:focusable="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="121dp"
