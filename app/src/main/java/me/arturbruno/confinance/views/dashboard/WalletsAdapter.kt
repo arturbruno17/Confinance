@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.WalletCardBinding
 import me.arturbruno.confinance.models.AccountType
+import java.text.NumberFormat
 
 class WalletsAdapter : ListAdapter<WalletData, WalletsAdapter.WalletViewHolder>(WalletItemCallback()) {
 
@@ -21,7 +22,7 @@ class WalletsAdapter : ListAdapter<WalletData, WalletsAdapter.WalletViewHolder>(
             holder.binding.apply {
                 walletImage.setImageResource(R.drawable.ic_baseline_account_balance_wallet_24)
                 walletName.text = currentPositionItem.data.name
-                walletBalance.text = currentPositionItem.data.balance.toString()
+                walletBalance.text = context.getString(R.string.amount, getCurrencySymbol(), currentPositionItem.data.balance)
                 walletType.text =
                     if (currentPositionItem.data.type == AccountType.CHECKING_ACCOUNT)
                         context.getString(R.string.checking_account) else
@@ -31,10 +32,16 @@ class WalletsAdapter : ListAdapter<WalletData, WalletsAdapter.WalletViewHolder>(
             holder.binding.apply {
                     walletImage.setImageResource(R.drawable.ic_baseline_credit_card_24)
                     walletName.text = currentPositionItem.data.name
-                    walletBalance.text = currentPositionItem.data.invoice.toString()
+                    walletBalance.text = context.getString(R.string.amount, getCurrencySymbol(), currentPositionItem.data.invoice)
                     walletType.text = context.getString(R.string.credit_card)
             }
         }
+    }
+
+    private fun getCurrencySymbol(): String {
+        val numberFormat = NumberFormat.getCurrencyInstance()
+        val currency = numberFormat.currency?.symbol
+        return currency ?: "$"
     }
 
     class WalletViewHolder(val binding: WalletCardBinding) : RecyclerView.ViewHolder(binding.root) {
