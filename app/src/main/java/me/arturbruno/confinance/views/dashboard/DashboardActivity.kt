@@ -15,6 +15,7 @@ import me.arturbruno.confinance.databinding.ActivityDashboardBinding
 import me.arturbruno.confinance.viewmodels.DashboardViewModel
 import me.arturbruno.confinance.views.CreateBankAccountActivity
 import me.arturbruno.confinance.views.CreateCreditCardActivity
+import java.text.NumberFormat
 
 @AndroidEntryPoint
 class DashboardActivity : AppCompatActivity() {
@@ -22,7 +23,7 @@ class DashboardActivity : AppCompatActivity() {
     private val binding: ActivityDashboardBinding by lazy {
         ActivityDashboardBinding.inflate(layoutInflater)
     }
-
+    private lateinit var walletsAdapter: WalletsAdapter
     private val viewModel: DashboardViewModel by viewModels()
 
     private val rotateOpenFab: Animation by lazy {
@@ -58,31 +59,14 @@ class DashboardActivity : AppCompatActivity() {
 
         setListeners()
 
-        val walletsAdapter = WalletsAdapter()
+        walletsAdapter = WalletsAdapter()
         binding.walletsList.apply {
             layoutManager = LinearLayoutManager(this@DashboardActivity, RecyclerView.HORIZONTAL, false)
             adapter = walletsAdapter
             addItemDecoration(WalletItemDecoration())
         }
 
-
-        viewModel.creditCards.observe(this) {
-            viewModel.mixData()
-        }
-
-        viewModel.bankAccounts.observe(this) {
-            viewModel.mixData()
-        }
-
-        viewModel.mixedData.observe(this) {
-            walletsAdapter.submitList(it)
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getAllBankAccounts()
-        viewModel.getAllCreditCards()
+        setObservers()
     }
 
     private fun setListeners() {
@@ -111,5 +95,47 @@ class DashboardActivity : AppCompatActivity() {
         binding.fabCreateCard.setOnClickListener {
             startActivity(Intent(this, CreateCreditCardActivity::class.java))
         }
+    }
+
+    private fun setObservers() {
+        viewModel.creditCards.observe(this) {
+            viewModel.mixData()
+        }
+
+        viewModel.bankAccounts.observe(this) {
+            viewModel.mixData()
+        }
+
+        viewModel.mixedData.observe(this) {
+            walletsAdapter.submitList(it)
+
+            viewModel.getTotalBalance()
+            viewModel.getTotalIncomes()
+            viewModel.getTotalExpenses()
+        }
+
+        viewModel.balance.observe(this) {
+            binding.balanceValue.text = getString(R.string.amount, getCurrencySymbol(), it)
+        }
+
+        viewModel.incomes.observe(this) {
+            binding.incomeValue.text = getString(R.string.amount, getCurrencySymbol(), it)
+        }
+
+        viewModel.expenses.observe(this) {
+            binding.expenseValue.text = getString(R.string.amount, getCurrencySymbol(), it)
+        }
+    }
+
+    private fun getCurrencySymbol(): String {
+        val numberFormat = NumberFormat.getCurrencyInstance()
+        val currency = numberFormat.currency?.symbol
+        return currency ?: "$"
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllBankAccounts()
+        viewModel.getAllCreditCards()
     }
 }

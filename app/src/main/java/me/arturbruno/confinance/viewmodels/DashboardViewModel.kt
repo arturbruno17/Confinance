@@ -32,7 +32,19 @@ class DashboardViewModel @Inject constructor(
     private var _mixedData = MutableLiveData<List<WalletData>>()
     val mixedData: LiveData<List<WalletData>>
         get() = _mixedData
+    
+    private var _balance = MutableLiveData<Double>()
+    val balance: LiveData<Double>
+        get() = _balance
 
+    private var _incomes = MutableLiveData<Double>()
+    val incomes: LiveData<Double>
+        get() = _incomes
+
+    private var _expenses = MutableLiveData<Double>()
+    val expenses: LiveData<Double>
+        get() = _expenses
+    
     fun getAllBankAccounts() {
         viewModelScope.launch {
             bankAccountRepository.getAllBankAccounts().map { list ->
@@ -68,6 +80,46 @@ class DashboardViewModel @Inject constructor(
             }
         }.invokeOnCompletion {
             _mixedData.postValue(mixedData)
+        }
+    }
+
+    fun getTotalBalance() {
+        val bankAccounts = _bankAccounts.value
+        val creditCards = _creditCards.value
+        var totalBalance = 0.0
+        viewModelScope.launch(Dispatchers.Default) {
+            bankAccounts?.forEach {
+                totalBalance += it.balance
+            }
+            creditCards?.forEach {
+                totalBalance -= it.invoice
+            }
+        }.invokeOnCompletion {
+            _balance.postValue(totalBalance)
+        }
+    }
+
+    fun getTotalIncomes() {
+        val bankAccounts = _bankAccounts.value
+        var totalIncomes = 0.0
+        viewModelScope.launch(Dispatchers.Default) {
+            bankAccounts?.forEach {
+                totalIncomes += it.balance
+            }
+        }.invokeOnCompletion {
+            _incomes.postValue(totalIncomes)
+        }
+    }
+
+    fun getTotalExpenses() {
+        val creditCards = _creditCards.value
+        var totalExpenses = 0.0
+        viewModelScope.launch(Dispatchers.Default) {
+            creditCards?.forEach {
+                totalExpenses += it.invoice
+            }
+        }.invokeOnCompletion {
+            _expenses.postValue(totalExpenses)
         }
     }
 }

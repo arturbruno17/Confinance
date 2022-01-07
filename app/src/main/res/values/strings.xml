@@ -28,4 +28,5 @@
     <string name="limit">Limite</string>
     <string name="due_date">Data de vencimento</string>
     <string name="date">%d/%d/%d</string>
+    <string name="amount">%s %.2f</string>
 </resources>
