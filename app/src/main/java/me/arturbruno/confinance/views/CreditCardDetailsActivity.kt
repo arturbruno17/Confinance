@@ -2,14 +2,22 @@ package me.arturbruno.confinance.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import me.arturbruno.confinance.R
+import me.arturbruno.confinance.databinding.ActivityCreditCardDetailsBinding
 
 class CreditCardDetailsActivity : AppCompatActivity() {
 
-//    private val binding:
+    private val binding: ActivityCreditCardDetailsBinding by lazy {
+        ActivityCreditCardDetailsBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_credit_card_details)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
+
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 }
