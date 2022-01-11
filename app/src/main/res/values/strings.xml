@@ -36,4 +36,5 @@
     <string name="name_account">Nome da Conta</string>
     <string name="institution_name">Nome da Instituição</string>
     <string name="type_account">Tipo de Conta</string>
+    <string name="current_invoice">Fatura atual</string>
 </resources>
