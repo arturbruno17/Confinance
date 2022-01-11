@@ -1,5 +1,6 @@
 package me.arturbruno.confinance.views.dashboard
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,12 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.WalletCardBinding
 import me.arturbruno.confinance.models.AccountType
+import me.arturbruno.confinance.views.BankAccountDetailsActivity
 import java.text.NumberFormat
 
-class WalletsAdapter : ListAdapter<WalletData, WalletsAdapter.WalletViewHolder>(WalletItemCallback()) {
+class WalletsAdapter(private val onClick: (WalletData) -> Unit) : ListAdapter<WalletData, WalletsAdapter.WalletViewHolder>(WalletItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletViewHolder =
-        WalletViewHolder.from(parent)
+        WalletViewHolder.from(parent, onClick)
 
     override fun onBindViewHolder(holder: WalletViewHolder, position: Int) {
         val currentPositionItem = getItem(position)
@@ -36,6 +38,9 @@ class WalletsAdapter : ListAdapter<WalletData, WalletsAdapter.WalletViewHolder>(
                     walletType.text = context.getString(R.string.credit_card)
             }
         }
+        holder.binding.root.setOnClickListener {
+            holder.onClick(currentPositionItem)
+        }
     }
 
     private fun getCurrencySymbol(): String {
@@ -44,12 +49,12 @@ class WalletsAdapter : ListAdapter<WalletData, WalletsAdapter.WalletViewHolder>(
         return currency ?: "$"
     }
 
-    class WalletViewHolder(val binding: WalletCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    class WalletViewHolder(val binding: WalletCardBinding, val onClick: (WalletData) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         companion object {
-            fun from(parent: ViewGroup): WalletViewHolder {
+            fun from(parent: ViewGroup, onClick: (WalletData) -> Unit): WalletViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = WalletCardBinding.inflate(layoutInflater)
-                return WalletViewHolder(binding)
+                return WalletViewHolder(binding, onClick)
             }
         }
     }

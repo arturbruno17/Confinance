@@ -13,8 +13,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.ActivityDashboardBinding
 import me.arturbruno.confinance.viewmodels.DashboardViewModel
+import me.arturbruno.confinance.views.BankAccountDetailsActivity
 import me.arturbruno.confinance.views.CreateBankAccountActivity
 import me.arturbruno.confinance.views.CreateCreditCardActivity
+import me.arturbruno.confinance.views.CreditCardDetailsActivity
 import java.text.NumberFormat
 
 @AndroidEntryPoint
@@ -59,7 +61,21 @@ class DashboardActivity : AppCompatActivity() {
 
         setListeners()
 
-        walletsAdapter = WalletsAdapter()
+        walletsAdapter = WalletsAdapter {
+            val intent = when (it) {
+                is WalletData.BankAccountItem -> {
+                    Intent(applicationContext, BankAccountDetailsActivity::class.java).apply {
+                        putExtra("id", it.data.id)
+                    }
+                }
+                is WalletData.CreditCardItem -> {
+                    Intent(applicationContext, CreditCardDetailsActivity::class.java).apply {
+                        putExtra("id", it.data.id)
+                    }
+                }
+            }
+            startActivity(intent)
+        }
         binding.walletsList.apply {
             layoutManager = LinearLayoutManager(this@DashboardActivity, RecyclerView.HORIZONTAL, false)
             adapter = walletsAdapter
