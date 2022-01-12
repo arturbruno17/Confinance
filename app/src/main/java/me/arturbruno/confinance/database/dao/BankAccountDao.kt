@@ -10,8 +10,8 @@ interface BankAccountDao {
     @Insert
     suspend fun insertBankAccount(bankAccountDao: BankAccount)
 
-    @Delete
-    suspend fun deleteBankAccount(bankAccountDao: BankAccount)
+    @Query("DELETE FROM bank_account WHERE id = :bankId")
+    suspend fun deleteBankAccount(bankId: Long)
 
     @Update
     suspend fun updateBankAccount(bankAccountDao: BankAccount)

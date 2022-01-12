@@ -10,8 +10,8 @@ interface CreditCardDao {
     @Insert
     suspend fun insertCreditCard(creditCard: CreditCard)
 
-    @Delete
-    suspend fun deleteCreditCard(creditCard: CreditCard)
+    @Query("DELETE FROM credit_card WHERE id = :cardId")
+    suspend fun deleteCreditCard(cardId: Long)
 
     @Update
     suspend fun updateCreditCard(creditCard: CreditCard)
