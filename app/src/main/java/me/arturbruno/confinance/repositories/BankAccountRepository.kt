@@ -21,4 +21,10 @@ class BankAccountRepository @Inject constructor(
     suspend fun getAllBankAccounts() = withContext(defaultDispatcher) {
         database.bankAccountDao().getAllBankAccounts()
     }
+
+    suspend fun deleteBankAccount(bankId: Long) {
+        withContext(defaultDispatcher) {
+            database.bankAccountDao().deleteBankAccount(bankId)
+        }
+    }
 }
