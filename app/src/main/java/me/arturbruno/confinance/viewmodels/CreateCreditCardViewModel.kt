@@ -10,7 +10,7 @@ import me.arturbruno.confinance.repositories.CreditCardRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class CreditCardViewModel @Inject constructor(
+class CreateCreditCardViewModel @Inject constructor(
     private val repository: CreditCardRepository
 ) : ViewModel() {
     fun insertCreditCard(creditCard: CreditCard) {

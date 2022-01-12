@@ -17,7 +17,7 @@ import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 @HiltViewModel
-class BankAccountViewModel @Inject constructor(
+class CreateBankAccountViewModel @Inject constructor(
     app: Application,
     private val repository: BankAccountRepository
 ) : AndroidViewModel(app) {

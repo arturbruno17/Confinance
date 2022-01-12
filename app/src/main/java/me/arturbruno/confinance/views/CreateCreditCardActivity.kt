@@ -9,7 +9,7 @@ import kotlinx.datetime.*
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.ActivityCreateCreditCardBinding
 import me.arturbruno.confinance.models.CreditCard
-import me.arturbruno.confinance.viewmodels.CreditCardViewModel
+import me.arturbruno.confinance.viewmodels.CreateCreditCardViewModel
 
 @AndroidEntryPoint
 class CreateCreditCardActivity : AppCompatActivity() {
@@ -18,7 +18,7 @@ class CreateCreditCardActivity : AppCompatActivity() {
         ActivityCreateCreditCardBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: CreditCardViewModel by viewModels()
+    private val viewModel: CreateCreditCardViewModel by viewModels()
 
     private lateinit var dateSelected: LocalDateTime
 

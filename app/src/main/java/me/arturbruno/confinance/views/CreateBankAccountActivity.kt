@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.ActivityCreateBankAccountBinding
-import me.arturbruno.confinance.viewmodels.BankAccountViewModel
+import me.arturbruno.confinance.viewmodels.CreateBankAccountViewModel
 
 @AndroidEntryPoint
 class CreateBankAccountActivity : AppCompatActivity() {
@@ -17,7 +17,7 @@ class CreateBankAccountActivity : AppCompatActivity() {
         ActivityCreateBankAccountBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: BankAccountViewModel by viewModels()
+    private val viewModel: CreateBankAccountViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
