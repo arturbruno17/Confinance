@@ -2,6 +2,8 @@ package me.arturbruno.confinance.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.ActivityCreditCardDetailsBinding
 
 class CreditCardDetailsActivity : AppCompatActivity() {
@@ -19,5 +21,12 @@ class CreditCardDetailsActivity : AppCompatActivity() {
         binding.toolbar.setNavigationOnClickListener {
             finish()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menu?.let {
+            menuInflater.inflate(R.menu.wallet_details_menu, it)
+        }
+        return super.onCreateOptionsMenu(menu)
     }
 }
