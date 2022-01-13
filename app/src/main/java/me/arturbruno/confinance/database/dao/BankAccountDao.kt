@@ -8,13 +8,13 @@ import me.arturbruno.confinance.database.relations.BankAccountAndBankTransaction
 @Dao
 interface BankAccountDao {
     @Insert
-    suspend fun insertBankAccount(bankAccountDao: BankAccount)
+    suspend fun insertBankAccount(bankAccount: BankAccount)
 
     @Query("DELETE FROM bank_account WHERE id = :bankId")
     suspend fun deleteBankAccount(bankId: Long)
 
     @Update
-    suspend fun updateBankAccount(bankAccountDao: BankAccount)
+    suspend fun updateBankAccount(bankAccount: BankAccount)
 
     @Query("SELECT * FROM bank_account")
     fun getAllBankAccounts(): Flow<List<BankAccount>>
