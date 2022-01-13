@@ -23,7 +23,9 @@ class CreditCardRepository @Inject constructor(
     }
 
     suspend fun deleteCreditCard(cardId: Long) {
-        database.creditCardDao().deleteCreditCard(cardId)
+        withContext(ioDispatcher) {
+            database.creditCardDao().deleteCreditCard(cardId)
+        }
     }
 
     suspend fun getAllCreditCardsWithTransactions(cardId: Long) =
