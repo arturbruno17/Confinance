@@ -6,8 +6,10 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.datetime.toLocalDateTime
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.ActivityCreditCardDetailsBinding
+import me.arturbruno.confinance.getCurrencySymbol
 import me.arturbruno.confinance.viewmodels.CreditCardDetailsViewModel
 
 @AndroidEntryPoint
@@ -28,6 +30,20 @@ class CreditCardDetailsActivity : AppCompatActivity() {
         binding.toolbar.setNavigationOnClickListener {
             finish()
         }
+
+        viewModel.creditCard.observe(this) {
+            binding.invoiceValue.text = getString(R.string.amount, getCurrencySymbol(), it.invoice)
+            binding.nameAccount.text = it.name
+            binding.nameInstitution.text = it.bank
+            binding.limit.text = getString(R.string.amount, getCurrencySymbol(), it.limit)
+            val date = it.invoiceDueDate.toLocalDateTime()
+            binding.dueDate.text = getString(R.string.date, date.dayOfMonth, date.monthNumber, date.year)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getAllCreditCardsWithTransactions(intent.getLongExtra("id", -1))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

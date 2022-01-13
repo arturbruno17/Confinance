@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.ActivityBankAccountDetailsBinding
+import me.arturbruno.confinance.getCurrencySymbol
 import me.arturbruno.confinance.viewmodels.BankAccountDetailsViewModel
 
 @AndroidEntryPoint
@@ -28,6 +29,18 @@ class BankAccountDetailsActivity : AppCompatActivity() {
         binding.toolbar.setNavigationOnClickListener {
             finish()
         }
+
+        viewModel.bankAccount.observe(this) {
+            binding.balanceValue.text = getString(R.string.amount, getCurrencySymbol(), it.balance)
+            binding.nameAccount.text = it.name
+            binding.nameInstitution.text = it.bank
+            binding.typeAccount.text = viewModel.convertEnumOnText(it.type)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getBankAccountWithTransactions(intent.getLongExtra("id", -1))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
