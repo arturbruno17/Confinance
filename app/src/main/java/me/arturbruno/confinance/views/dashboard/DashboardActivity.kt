@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.ActivityDashboardBinding
+import me.arturbruno.confinance.getCurrencySymbol
 import me.arturbruno.confinance.viewmodels.DashboardViewModel
 import me.arturbruno.confinance.views.BankAccountDetailsActivity
 import me.arturbruno.confinance.views.CreateBankAccountActivity
@@ -141,12 +142,6 @@ class DashboardActivity : AppCompatActivity() {
         viewModel.expenses.observe(this) {
             binding.expenseValue.text = getString(R.string.amount, getCurrencySymbol(), it)
         }
-    }
-
-    private fun getCurrencySymbol(): String {
-        val numberFormat = NumberFormat.getCurrencyInstance()
-        val currency = numberFormat.currency?.symbol
-        return currency ?: "$"
     }
 
     override fun onResume() {

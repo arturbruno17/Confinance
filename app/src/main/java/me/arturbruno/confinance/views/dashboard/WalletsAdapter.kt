@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.WalletCardBinding
+import me.arturbruno.confinance.getCurrencySymbol
 import me.arturbruno.confinance.models.AccountType
 import me.arturbruno.confinance.views.BankAccountDetailsActivity
 import java.text.NumberFormat
@@ -41,12 +42,6 @@ class WalletsAdapter(private val onClick: (WalletData) -> Unit) : ListAdapter<Wa
         holder.binding.root.setOnClickListener {
             holder.onClick(currentPositionItem)
         }
-    }
-
-    private fun getCurrencySymbol(): String {
-        val numberFormat = NumberFormat.getCurrencyInstance()
-        val currency = numberFormat.currency?.symbol
-        return currency ?: "$"
     }
 
     class WalletViewHolder(val binding: WalletCardBinding, val onClick: (WalletData) -> Unit) : RecyclerView.ViewHolder(binding.root) {
