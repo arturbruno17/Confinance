@@ -27,7 +27,7 @@
     <string name="card_information">Informações do cartão</string>
     <string name="limit">Limite</string>
     <string name="due_date">Data de vencimento</string>
-    <string name="date">%d/%d/%d</string>
+    <string name="date">%d/%d</string>
     <string name="amount">%s %.2f</string>
     <string name="wallet_details">Detalhes da carteira</string>
     <string name="delete">Deletar</string>

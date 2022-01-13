@@ -37,7 +37,7 @@ class CreditCardDetailsActivity : AppCompatActivity() {
             binding.nameInstitution.text = it.bank
             binding.limit.text = getString(R.string.amount, getCurrencySymbol(), it.limit)
             val date = it.invoiceDueDate.toLocalDateTime()
-            binding.dueDate.text = getString(R.string.date, date.dayOfMonth, date.monthNumber, date.year)
+            binding.dueDate.text = getString(R.string.date, date.monthNumber, date.year)
         }
     }
 

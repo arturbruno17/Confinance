@@ -38,7 +38,6 @@ class CreateCreditCardActivity : AppCompatActivity() {
                 binding.inputDueDateEditText.setText(
                     getString(
                         R.string.date,
-                        dateSelected.dayOfMonth,
                         dateSelected.monthNumber,
                         dateSelected.year
                     )
