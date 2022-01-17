@@ -4,11 +4,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.ActivityBankAccountDetailsBinding
+import me.arturbruno.confinance.databinding.InputTransactionDialogBinding
 import me.arturbruno.confinance.getCurrencySymbol
+import me.arturbruno.confinance.models.BankTransaction
 import me.arturbruno.confinance.viewmodels.BankAccountDetailsViewModel
 
 @AndroidEntryPoint
@@ -18,7 +28,38 @@ class BankAccountDetailsActivity : AppCompatActivity() {
         ActivityBankAccountDetailsBinding.inflate(layoutInflater)
     }
 
+    private val inputDialogBinding: InputTransactionDialogBinding by lazy {
+        InputTransactionDialogBinding.inflate(layoutInflater)
+    }
+
     private val viewModel: BankAccountDetailsViewModel by viewModels()
+
+    private val rotateOpenFab: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            this,
+            R.anim.rotate_open_button
+        )
+    }
+    private val rotateCloseFab: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            this,
+            R.anim.rotate_close_button
+        )
+    }
+    private val showButton: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            this,
+            R.anim.show_button
+        )
+    }
+    private val hideButton: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            this,
+            R.anim.hide_button
+        )
+    }
+
+    private var active = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +69,24 @@ class BankAccountDetailsActivity : AppCompatActivity() {
 
         binding.toolbar.setNavigationOnClickListener {
             finish()
+        }
+
+        binding.fabTransaction.setOnClickListener {
+            active = if (!active) {
+                it.startAnimation(rotateOpenFab)
+                binding.fabDeposit.visibility = View.VISIBLE
+                binding.fabDrawOut.visibility = View.VISIBLE
+                binding.fabDeposit.startAnimation(showButton)
+                binding.fabDrawOut.startAnimation(showButton)
+                true
+            } else {
+                it.startAnimation(rotateCloseFab)
+                binding.fabDeposit.visibility = View.GONE
+                binding.fabDrawOut.visibility = View.GONE
+                binding.fabDeposit.startAnimation(hideButton)
+                binding.fabDrawOut.startAnimation(hideButton)
+                false
+            }
         }
 
         viewModel.bankAccount.observe(this) {

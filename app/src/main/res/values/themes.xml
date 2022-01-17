@@ -38,6 +38,8 @@
 
         <!-- Material Calendar style-->
         <item name="materialCalendarTheme">@style/ThemeOverlay.Confinance.DatePicker</item>
+        <!-- Material Dialog style-->
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Confinance.MaterialAlertDialog</item>
     </style>
 
 
