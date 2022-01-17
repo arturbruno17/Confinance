@@ -37,4 +37,10 @@
     <string name="institution_name">Nome da Instituição</string>
     <string name="type_account">Tipo de Conta</string>
     <string name="current_invoice">Fatura atual</string>
+    <string name="value">Valor</string>
+    <string name="deposit">Depósito</string>
+    <string name="to_deposit">Depositar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="draw_out">Saque</string>
+    <string name="to_draw_out">Sacar</string>
 </resources>

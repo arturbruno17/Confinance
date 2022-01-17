@@ -89,6 +89,69 @@ class BankAccountDetailsActivity : AppCompatActivity() {
             }
         }
 
+        binding.fabDeposit.setOnClickListener {
+            inputDialogBinding.root.parent?.let {
+                val parent = it as ViewGroup
+                parent.removeView(inputDialogBinding.root)
+            }
+            MaterialAlertDialogBuilder(this)
+                .setTitle(getString(R.string.deposit))
+                .setView(inputDialogBinding.root)
+                .setPositiveButton(R.string.to_deposit) { dialog, which ->
+                    val name = inputDialogBinding.inputNameEditText.text.toString()
+                    val value =
+                        inputDialogBinding.inputValueEditText.text.toString().toDoubleOrNull() ?: 0.0
+                    viewModel.bankAccount.value?.let {
+                        viewModel.insertBankTransaction(
+                            BankTransaction(
+                                id = 0,
+                                name = name,
+                                value = value,
+                                date = Clock.System.now()
+                                    .toLocalDateTime(TimeZone.currentSystemDefault())
+                                    .toString(),
+                                bankId = it.id
+                            ),
+                            it.copy(balance = it.balance + value)
+                        )
+                    }
+                }.setNegativeButton(R.string.cancel) { dialog, which ->
+                    dialog.cancel()
+                }
+                .show()
+        }
+
+        binding.fabDrawOut.setOnClickListener {
+            inputDialogBinding.root.parent?.let {
+                val parent = it as ViewGroup
+                parent.removeView(inputDialogBinding.root)
+            }
+            MaterialAlertDialogBuilder(this)
+                .setTitle(getString(R.string.draw_out))
+                .setView(inputDialogBinding.root)
+                .setPositiveButton(R.string.to_draw_out) { dialog, which ->
+                    val name = inputDialogBinding.inputNameEditText.text.toString()
+                    val value = -(inputDialogBinding.inputValueEditText.text.toString().toDoubleOrNull() ?: 0.0)
+                    viewModel.bankAccount.value?.let {
+                        viewModel.insertBankTransaction(
+                            BankTransaction(
+                                id = 0,
+                                name = name,
+                                value = value,
+                                date = Clock.System.now()
+                                    .toLocalDateTime(TimeZone.currentSystemDefault())
+                                    .toString(),
+                                bankId = it.id
+                            ),
+                            it.copy(balance = it.balance + value)
+                        )
+                    }
+                }.setNegativeButton(R.string.cancel) { dialog, which ->
+                    dialog.cancel()
+                }
+                .show()
+        }
+
         viewModel.bankAccount.observe(this) {
             binding.balanceValue.text = getString(R.string.amount, getCurrencySymbol(), it.balance)
             binding.nameAccount.text = it.name
