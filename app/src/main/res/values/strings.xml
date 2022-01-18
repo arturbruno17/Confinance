@@ -47,4 +47,5 @@
     <string name="new_buy_or_invoice_payment">Nova compra ou pagar fatura</string>
     <string name="new_buy">Nova compra</string>
     <string name="invoice_payment">Pagamento da fatura</string>
+    <string name="to_buy">Comprar</string>
 </resources>

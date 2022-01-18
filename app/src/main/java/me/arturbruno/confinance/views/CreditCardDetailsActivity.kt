@@ -5,14 +5,20 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.ActivityCreditCardDetailsBinding
+import me.arturbruno.confinance.databinding.InputTransactionDialogBinding
 import me.arturbruno.confinance.getCurrencySymbol
+import me.arturbruno.confinance.models.CardPurchase
 import me.arturbruno.confinance.viewmodels.CreditCardDetailsViewModel
 
 @AndroidEntryPoint
@@ -20,6 +26,10 @@ class CreditCardDetailsActivity : AppCompatActivity() {
 
     private val binding: ActivityCreditCardDetailsBinding by lazy {
         ActivityCreditCardDetailsBinding.inflate(layoutInflater)
+    }
+
+    private val inputDialogBinding: InputTransactionDialogBinding by lazy {
+        InputTransactionDialogBinding.inflate(layoutInflater)
     }
 
     private val viewModel: CreditCardDetailsViewModel by viewModels()
@@ -77,6 +87,35 @@ class CreditCardDetailsActivity : AppCompatActivity() {
                 binding.fabInvoicePayment.startAnimation(hideButton)
                 false
             }
+        }
+
+
+        binding.fabNewBuy.setOnClickListener {
+            MaterialAlertDialogBuilder(this)
+                .setTitle(getString(R.string.new_buy))
+                .setView(inputDialogBinding.root)
+                .setPositiveButton(R.string.to_buy) { dialog, which ->
+                    val name = inputDialogBinding.inputNameEditText.text.toString()
+                    val value =
+                        inputDialogBinding.inputValueEditText.text.toString().toDoubleOrNull() ?: 0.0
+                    viewModel.creditCard.value?.let {
+                        viewModel.insertCardPurchase(
+                            CardPurchase(
+                                id = 0,
+                                name = name,
+                                value = value,
+                                date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString(),
+                                cardId = it.id
+                            ),
+                            it.copy(invoice = it.invoice + value)
+                        )
+                    }
+                }.setNegativeButton(R.string.cancel, null)
+                .setOnDismissListener {
+                    val parent = inputDialogBinding.root.parent as ViewGroup
+                    parent.removeView(inputDialogBinding.root)
+                }
+                .show()
         }
 
         viewModel.creditCard.observe(this) {

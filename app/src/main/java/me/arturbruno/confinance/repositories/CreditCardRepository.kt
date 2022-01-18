@@ -18,6 +18,12 @@ class CreditCardRepository @Inject constructor(
         }
     }
 
+    suspend fun updateCreditCard(creditCard: CreditCard) {
+        withContext(ioDispatcher) {
+            database.creditCardDao().updateCreditCard(creditCard)
+        }
+    }
+
     suspend fun getAllCreditCards() = withContext(ioDispatcher) {
         database.creditCardDao().getAllCreditCards()
     }
