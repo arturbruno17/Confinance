@@ -213,6 +213,43 @@
             tools:itemCount="5"
             tools:listitem="@layout/transaction_item" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_transaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/new_buy_or_invoice_payment"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_baseline_add_24" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_new_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/new_buy"
+            android:visibility="gone"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toTopOf="@id/fab_transaction"
+            app:layout_constraintEnd_toEndOf="@id/fab_transaction"
+            app:layout_constraintStart_toStartOf="@id/fab_transaction"
+            app:srcCompat="@drawable/ic_baseline_add_24" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_invoice_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/invoice_payment"
+            android:layout_marginBottom="4dp"
+            app:fabSize="mini"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/fab_new_buy"
+            app:layout_constraintEnd_toEndOf="@id/fab_new_buy"
+            app:layout_constraintStart_toStartOf="@id/fab_new_buy"
+            app:srcCompat="@drawable/ic_baseline_attach_money_24"/>
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"

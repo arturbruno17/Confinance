@@ -44,4 +44,7 @@
     <string name="draw_out">Saque</string>
     <string name="to_draw_out">Sacar</string>
     <string name="deposit_or_draw_out">Depositar ou sacar</string>
+    <string name="new_buy_or_invoice_payment">Nova compra ou pagar fatura</string>
+    <string name="new_buy">Nova compra</string>
+    <string name="invoice_payment">Pagamento da fatura</string>
 </resources>

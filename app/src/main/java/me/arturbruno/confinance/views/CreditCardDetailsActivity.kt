@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.datetime.toLocalDateTime
@@ -21,6 +24,33 @@ class CreditCardDetailsActivity : AppCompatActivity() {
 
     private val viewModel: CreditCardDetailsViewModel by viewModels()
 
+    private val rotateOpenFab: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            this,
+            R.anim.rotate_open_button
+        )
+    }
+    private val rotateCloseFab: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            this,
+            R.anim.rotate_close_button
+        )
+    }
+    private val showButton: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            this,
+            R.anim.show_button
+        )
+    }
+    private val hideButton: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            this,
+            R.anim.hide_button
+        )
+    }
+
+    private var active = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -29,6 +59,24 @@ class CreditCardDetailsActivity : AppCompatActivity() {
 
         binding.toolbar.setNavigationOnClickListener {
             finish()
+        }
+
+        binding.fabTransaction.setOnClickListener {
+            active = if (!active) {
+                it.startAnimation(rotateOpenFab)
+                binding.fabNewBuy.visibility = View.VISIBLE
+                binding.fabInvoicePayment.visibility = View.VISIBLE
+                binding.fabNewBuy.startAnimation(showButton)
+                binding.fabInvoicePayment.startAnimation(showButton)
+                true
+            } else {
+                it.startAnimation(rotateCloseFab)
+                binding.fabNewBuy.visibility = View.GONE
+                binding.fabInvoicePayment.visibility = View.GONE
+                binding.fabNewBuy.startAnimation(hideButton)
+                binding.fabInvoicePayment.startAnimation(hideButton)
+                false
+            }
         }
 
         viewModel.creditCard.observe(this) {
