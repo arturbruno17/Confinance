@@ -90,10 +90,6 @@ class BankAccountDetailsActivity : AppCompatActivity() {
         }
 
         binding.fabDeposit.setOnClickListener {
-            inputDialogBinding.root.parent?.let {
-                val parent = it as ViewGroup
-                parent.removeView(inputDialogBinding.root)
-            }
             MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.deposit))
                 .setView(inputDialogBinding.root)
@@ -115,17 +111,15 @@ class BankAccountDetailsActivity : AppCompatActivity() {
                             it.copy(balance = it.balance + value)
                         )
                     }
-                }.setNegativeButton(R.string.cancel) { dialog, which ->
-                    dialog.cancel()
+                }.setNegativeButton(R.string.cancel, null)
+                .setOnDismissListener {
+                    val parent = inputDialogBinding.root.parent as ViewGroup
+                    parent.removeView(inputDialogBinding.root)
                 }
                 .show()
         }
 
         binding.fabDrawOut.setOnClickListener {
-            inputDialogBinding.root.parent?.let {
-                val parent = it as ViewGroup
-                parent.removeView(inputDialogBinding.root)
-            }
             MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.draw_out))
                 .setView(inputDialogBinding.root)
@@ -146,8 +140,10 @@ class BankAccountDetailsActivity : AppCompatActivity() {
                             it.copy(balance = it.balance + value)
                         )
                     }
-                }.setNegativeButton(R.string.cancel) { dialog, which ->
-                    dialog.cancel()
+                }.setNegativeButton(R.string.cancel, null)
+                .setOnDismissListener {
+                    val parent = inputDialogBinding.root.parent as ViewGroup
+                    parent.removeView(inputDialogBinding.root)
                 }
                 .show()
         }
