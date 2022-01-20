@@ -21,6 +21,7 @@ import me.arturbruno.confinance.databinding.InputInvoicePaymentDialogBinding
 import me.arturbruno.confinance.databinding.InputTransactionDialogBinding
 import me.arturbruno.confinance.getCurrencySymbol
 import me.arturbruno.confinance.models.CardPurchase
+import me.arturbruno.confinance.models.InvoicePayment
 import me.arturbruno.confinance.viewmodels.CreditCardDetailsViewModel
 
 @AndroidEntryPoint
@@ -134,7 +135,21 @@ class CreditCardDetailsActivity : AppCompatActivity() {
                 .setTitle(getString(R.string.pay_invoice))
                 .setView(inputInvoicePaymentDialogBinding.root)
                 .setPositiveButton(R.string.to_pay) { dialog, which ->
-                    // TODO()
+                    val value = inputInvoicePaymentDialogBinding.inputValueEditText.text.toString().toDoubleOrNull() ?: 0.0
+                    viewModel.creditCard.value?.let { creditCard ->
+                        val bankAccount = viewModel.bankAccounts.value?.get(positionItemClicked) ?: return@setPositiveButton
+                        viewModel.insertInvoicePayment(
+                            InvoicePayment(
+                                id = 0,
+                                value = value,
+                                date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString(),
+                                cardId = creditCard.id,
+                                accountId = bankAccount.id
+                            ),
+                            creditCard.copy(invoice = creditCard.invoice - value),
+                            bankAccount.copy(balance = bankAccount.balance - value)
+                        )
+                    }
                 }.setNegativeButton(R.string.cancel, null)
                 .setOnDismissListener {
                     val parent = inputInvoicePaymentDialogBinding.root.parent as ViewGroup

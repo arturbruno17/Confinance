@@ -11,13 +11,13 @@
             android:id="@+id/input_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/name">
+            android:hint="@string/value">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_value_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="numberDecimal"
                 android:maxLines="1"
                 android:textAppearance="?attr/textAppearanceBody1"
                 android:textColor="@color/black_text" />
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="@string/value">
+            android:hint="@string/bank">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/input_bank_account_edit_text"
