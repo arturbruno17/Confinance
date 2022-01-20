@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,6 +17,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.ActivityCreditCardDetailsBinding
+import me.arturbruno.confinance.databinding.InputInvoicePaymentDialogBinding
 import me.arturbruno.confinance.databinding.InputTransactionDialogBinding
 import me.arturbruno.confinance.getCurrencySymbol
 import me.arturbruno.confinance.models.CardPurchase
@@ -30,6 +32,10 @@ class CreditCardDetailsActivity : AppCompatActivity() {
 
     private val inputDialogBinding: InputTransactionDialogBinding by lazy {
         InputTransactionDialogBinding.inflate(layoutInflater)
+    }
+
+    private val inputInvoicePaymentDialogBinding: InputInvoicePaymentDialogBinding by lazy {
+        InputInvoicePaymentDialogBinding.inflate(layoutInflater)
     }
 
     private val viewModel: CreditCardDetailsViewModel by viewModels()
@@ -60,6 +66,7 @@ class CreditCardDetailsActivity : AppCompatActivity() {
     }
 
     private var active = false
+    private var positionItemClicked = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,6 +125,24 @@ class CreditCardDetailsActivity : AppCompatActivity() {
                 .show()
         }
 
+        inputInvoicePaymentDialogBinding.inputBankAccountEditText.setOnItemClickListener { _, _, position, _ ->
+            positionItemClicked = position
+        }
+
+        binding.fabInvoicePayment.setOnClickListener {
+            MaterialAlertDialogBuilder(this)
+                .setTitle(getString(R.string.pay_invoice))
+                .setView(inputInvoicePaymentDialogBinding.root)
+                .setPositiveButton(R.string.to_pay) { dialog, which ->
+                    // TODO()
+                }.setNegativeButton(R.string.cancel, null)
+                .setOnDismissListener {
+                    val parent = inputInvoicePaymentDialogBinding.root.parent as ViewGroup
+                    parent.removeView(inputInvoicePaymentDialogBinding.root)
+                }
+                .show()
+        }
+
         viewModel.creditCard.observe(this) {
             binding.invoiceValue.text = getString(R.string.amount, getCurrencySymbol(), it.invoice)
             binding.nameAccount.text = it.name
@@ -126,11 +151,21 @@ class CreditCardDetailsActivity : AppCompatActivity() {
             val date = it.invoiceDueDate.toLocalDateTime()
             binding.dueDate.text = getString(R.string.date, date.monthNumber, date.year)
         }
+
+        viewModel.bankAccounts.observe(this) { list ->
+            val items = mutableListOf<String>()
+            list?.map {
+                items.add(it.name)
+            }
+            val adapter = ArrayAdapter(this, R.layout.list_text_field, items)
+            inputInvoicePaymentDialogBinding.inputBankAccountEditText.setAdapter(adapter)
+        }
     }
 
     override fun onStart() {
         super.onStart()
         viewModel.getAllCreditCardsWithTransactions(intent.getLongExtra("id", -1))
+        viewModel.getAllBankAccounts()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
