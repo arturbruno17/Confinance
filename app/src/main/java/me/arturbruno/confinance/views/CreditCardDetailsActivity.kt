@@ -10,6 +10,8 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.datetime.Clock
@@ -74,6 +76,13 @@ class CreditCardDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
+        val transactionsAdapter = TransactionsAdapter()
+
+        binding.transactionsList.apply {
+            layoutManager = LinearLayoutManager(this@CreditCardDetailsActivity, RecyclerView.VERTICAL, true)
+            adapter = transactionsAdapter
+        }
 
         binding.toolbar.setNavigationOnClickListener {
             finish()
@@ -174,6 +183,18 @@ class CreditCardDetailsActivity : AppCompatActivity() {
             }
             val adapter = ArrayAdapter(this, R.layout.list_text_field, items)
             inputInvoicePaymentDialogBinding.inputBankAccountEditText.setAdapter(adapter)
+        }
+
+        viewModel.invoicePayments.observe(this) {
+            viewModel.mixTransactions()
+        }
+
+        viewModel.cardPurchaseHistory.observe(this) {
+            viewModel.mixTransactions()
+        }
+
+        viewModel.mixedTransactions.observe(this) {
+            transactionsAdapter.submitList(it)
         }
     }
 

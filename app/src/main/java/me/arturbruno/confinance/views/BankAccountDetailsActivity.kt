@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.datetime.Clock
@@ -66,6 +68,13 @@ class BankAccountDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
+        val transactionsAdapter = TransactionsAdapter()
+
+        binding.transactionsList.apply {
+            layoutManager = LinearLayoutManager(this@BankAccountDetailsActivity, RecyclerView.VERTICAL, true)
+            adapter = transactionsAdapter
+        }
 
         binding.toolbar.setNavigationOnClickListener {
             finish()
@@ -153,6 +162,18 @@ class BankAccountDetailsActivity : AppCompatActivity() {
             binding.nameAccount.text = it.name
             binding.nameInstitution.text = it.bank
             binding.typeAccount.text = viewModel.convertEnumOnText(it.type)
+        }
+
+        viewModel.bankTransactions.observe(this) {
+            viewModel.mixTransactions()
+        }
+
+        viewModel.invoicePayments.observe(this) {
+            viewModel.mixTransactions()
+        }
+
+        viewModel.mixedTransactions.observe(this) {
+            transactionsAdapter.submitList(it)
         }
     }
 

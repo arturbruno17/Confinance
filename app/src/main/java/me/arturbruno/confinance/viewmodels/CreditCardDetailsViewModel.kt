@@ -10,12 +10,14 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.arturbruno.confinance.database.entities.asEntity
 import me.arturbruno.confinance.models.*
 import me.arturbruno.confinance.repositories.BankAccountRepository
 import me.arturbruno.confinance.repositories.CardPurchaseRepository
 import me.arturbruno.confinance.repositories.CreditCardRepository
 import me.arturbruno.confinance.repositories.InvoicePaymentRepository
+import me.arturbruno.confinance.views.Transaction
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,6 +36,18 @@ class CreditCardDetailsViewModel @Inject constructor(
     val bankAccounts: LiveData<List<BankAccount>>
         get() = _bankAccounts
 
+    private var _cardPurchaseHistory = MutableLiveData<List<CardPurchase>>()
+    val cardPurchaseHistory: LiveData<List<CardPurchase>>
+        get() = _cardPurchaseHistory
+
+    private var _invoicePayments = MutableLiveData<List<InvoicePayment>>()
+    val invoicePayments: LiveData<List<InvoicePayment>>
+        get() = _invoicePayments
+
+    private var _mixedTransactions = MutableLiveData<List<Transaction>>()
+    val mixedTransactions: LiveData<List<Transaction>>
+        get() = _mixedTransactions
+
     fun deleteCreditCard(cardId: Long) {
         viewModelScope.launch {
             creditCardRepository.deleteCreditCard(cardId)
@@ -44,7 +58,56 @@ class CreditCardDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             creditCardRepository.getAllCreditCardsWithTransactions(cardId).collect {
                 _creditCard.postValue(it.creditCard.asModel())
+                setCardPurchaseHistory(it.cardPurchaseHistory)
+                setInvoicePayments(it.invoicePayment)
             }
+        }
+    }
+
+    private suspend fun setCardPurchaseHistory(list: List<me.arturbruno.confinance.database.entities.CardPurchase>?) {
+        list?.let { list ->
+            withContext(Dispatchers.Default) {
+                val cardPurchaseHistory = list.map {
+                    it.asModel()
+                }
+                _cardPurchaseHistory.postValue(cardPurchaseHistory)
+            }
+        }
+    }
+
+    private suspend fun setInvoicePayments(list: List<me.arturbruno.confinance.database.entities.InvoicePayment>?) {
+        list?.let { list ->
+            withContext(Dispatchers.Default) {
+                val invoicePayments = list.map {
+                    it.asModel()
+                }
+                _invoicePayments.postValue(invoicePayments)
+            }
+        }
+    }
+
+    fun mixTransactions() {
+        val mixedData = mutableListOf<Transaction>()
+        viewModelScope.launch(Dispatchers.Default) {
+            _cardPurchaseHistory.value?.forEach {
+                mixedData.add(Transaction.CardPurchaseItem(it))
+            }
+            _invoicePayments.value?.forEach {
+                mixedData.add(Transaction.InvoicePaymentItem(it))
+            }
+        }.invokeOnCompletion {
+            sortTransactions(mixedData)
+        }
+    }
+
+    private fun sortTransactions(list: List<Transaction>) {
+        var listOrdered = listOf<Transaction>()
+        viewModelScope.launch(Dispatchers.Default) {
+            listOrdered = list.sortedBy {
+                it.date
+            }
+        }.invokeOnCompletion {
+            _mixedTransactions.postValue(listOrdered)
         }
     }
 
