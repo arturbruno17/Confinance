@@ -14,11 +14,7 @@ import me.arturbruno.confinance.R
 import me.arturbruno.confinance.databinding.ActivityDashboardBinding
 import me.arturbruno.confinance.getCurrencySymbol
 import me.arturbruno.confinance.viewmodels.DashboardViewModel
-import me.arturbruno.confinance.views.BankAccountDetailsActivity
-import me.arturbruno.confinance.views.CreateBankAccountActivity
-import me.arturbruno.confinance.views.CreateCreditCardActivity
-import me.arturbruno.confinance.views.CreditCardDetailsActivity
-import java.text.NumberFormat
+import me.arturbruno.confinance.views.*
 
 @AndroidEntryPoint
 class DashboardActivity : AppCompatActivity() {
@@ -27,6 +23,7 @@ class DashboardActivity : AppCompatActivity() {
         ActivityDashboardBinding.inflate(layoutInflater)
     }
     private lateinit var walletsAdapter: WalletsAdapter
+    private lateinit var transactionsAdapter: TransactionsAdapter
     private val viewModel: DashboardViewModel by viewModels()
 
     private val rotateOpenFab: Animation by lazy {
@@ -77,10 +74,17 @@ class DashboardActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+        transactionsAdapter = TransactionsAdapter()
+
         binding.walletsList.apply {
             layoutManager = LinearLayoutManager(this@DashboardActivity, RecyclerView.HORIZONTAL, false)
             adapter = walletsAdapter
             addItemDecoration(WalletItemDecoration())
+        }
+
+        binding.transactionsList.apply {
+            layoutManager = LinearLayoutManager(this@DashboardActivity, RecyclerView.VERTICAL, true)
+            adapter = transactionsAdapter
         }
 
         setObservers()
@@ -123,6 +127,22 @@ class DashboardActivity : AppCompatActivity() {
             viewModel.mixData()
         }
 
+        viewModel.bankTransactions.observe(this) {
+            viewModel.mixTransactions()
+        }
+
+        viewModel.cardPurchases.observe(this) {
+            viewModel.mixTransactions()
+        }
+
+        viewModel.invoicePayments.observe(this) {
+            viewModel.mixTransactions()
+        }
+
+        viewModel.mixedTransactions.observe(this) {
+            transactionsAdapter.submitList(it)
+        }
+
         viewModel.mixedData.observe(this) {
             walletsAdapter.submitList(it)
 
@@ -148,5 +168,8 @@ class DashboardActivity : AppCompatActivity() {
         super.onResume()
         viewModel.getAllBankAccounts()
         viewModel.getAllCreditCards()
+        viewModel.getAllBankTransactions()
+        viewModel.getAllCardPurchases()
+        viewModel.getAllInvoicePayments()
     }
 }

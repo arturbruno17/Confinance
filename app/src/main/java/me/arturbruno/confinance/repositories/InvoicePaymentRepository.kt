@@ -19,4 +19,8 @@ class InvoicePaymentRepository @Inject constructor(
         }
     }
 
+    suspend fun getAllInvoicePayments() = withContext(ioDispatcher) {
+        database.invoicePaymentDao().getAllInvoicePayments()
+    }
+
 }

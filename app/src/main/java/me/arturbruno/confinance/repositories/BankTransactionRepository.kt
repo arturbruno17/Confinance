@@ -19,4 +19,8 @@ class BankTransactionRepository @Inject constructor(
         }
     }
 
+    suspend fun getAllBankTransactions() = withContext(ioDispatcher) {
+        database.bankTransactionHistoryDao().getAllBankTransactions()
+    }
+
 }

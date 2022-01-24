@@ -19,4 +19,9 @@ class CardPurchaseRepository @Inject constructor(
         }
     }
 
+    suspend fun getAllCardPurchases() =
+        withContext(ioDispatcher) {
+            database.cardPurchaseHistoryDao().getAllCardPurchases()
+        }
+
 }
