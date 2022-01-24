@@ -3,7 +3,7 @@ buildscript {
     ext {
         lifecycle_version = "2.4.0"
         fragment_version = "1.4.0"
-        room_version = "2.3.0"
+        room_version = "2.4.1"
         hilt_version = "2.40.5"
     }
     repositories {
