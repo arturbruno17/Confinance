@@ -1,5 +1,6 @@
 package me.arturbruno.confinance.views
 
+import android.graphics.Canvas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -62,6 +64,53 @@ class BankAccountDetailsActivity : AppCompatActivity() {
         )
     }
 
+    private val touchHelper: ItemTouchHelper by lazy {
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val transaction =
+                    viewModel.mixedTransactions.value?.get(viewHolder.absoluteAdapterPosition) ?: return
+                viewModel.deleteTransaction(transaction)
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+
+                RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                    .addBackgroundColor(getColor(R.color.red))
+                    .addActionIcon(R.drawable.ic_baseline_delete_outline_24)
+                    .setActionIconTint(R.color.dark_gray)
+                    .create()
+                    .decorate()
+
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+            }
+
+        })
+    }
+
     private var active = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,10 +119,13 @@ class BankAccountDetailsActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+        touchHelper.attachToRecyclerView(binding.transactionsList)
+
         val transactionsAdapter = TransactionsAdapter()
 
         binding.transactionsList.apply {
-            layoutManager = LinearLayoutManager(this@BankAccountDetailsActivity, RecyclerView.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(this@BankAccountDetailsActivity, RecyclerView.VERTICAL, false)
             adapter = transactionsAdapter
         }
 
@@ -106,7 +158,8 @@ class BankAccountDetailsActivity : AppCompatActivity() {
                 .setPositiveButton(R.string.to_deposit) { dialog, which ->
                     val name = inputDialogBinding.inputNameEditText.text.toString()
                     val value =
-                        inputDialogBinding.inputValueEditText.text.toString().toDoubleOrNull() ?: 0.0
+                        inputDialogBinding.inputValueEditText.text.toString().toDoubleOrNull()
+                            ?: 0.0
                     viewModel.bankAccount.value?.let {
                         viewModel.insertBankTransaction(
                             BankTransaction(
@@ -135,7 +188,9 @@ class BankAccountDetailsActivity : AppCompatActivity() {
                 .setView(inputDialogBinding.root)
                 .setPositiveButton(R.string.to_draw_out) { dialog, which ->
                     val name = inputDialogBinding.inputNameEditText.text.toString()
-                    val value = -(inputDialogBinding.inputValueEditText.text.toString().toDoubleOrNull() ?: 0.0)
+                    val value =
+                        -(inputDialogBinding.inputValueEditText.text.toString().toDoubleOrNull()
+                            ?: 0.0)
                     viewModel.bankAccount.value?.let {
                         viewModel.insertBankTransaction(
                             BankTransaction(
