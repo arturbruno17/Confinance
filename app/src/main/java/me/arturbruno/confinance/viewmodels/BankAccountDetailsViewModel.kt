@@ -114,6 +114,28 @@ class BankAccountDetailsViewModel @Inject constructor(
         }
     }
 
+    fun deleteTransaction(transaction: Transaction) {
+        when (transaction) {
+            is Transaction.CardPurchaseItem -> {
+                viewModelScope.launch {
+                    cardPurchaseRepository.deleteCardPurchase(transaction.data.asEntity())
+                }
+            }
+
+            is Transaction.BankTransactionItem -> {
+                viewModelScope.launch {
+                    bankTransactionRepository.deleteBankTransaction(transaction.data.asEntity())
+                }
+            }
+
+            is Transaction.InvoicePaymentItem -> {
+                viewModelScope.launch {
+                    invoicePaymentRepository.deleteInvoicePayment(transaction.data.asEntity())
+                }
+            }
+        }
+    }
+
     fun convertEnumOnText(type: AccountType): String {
         val application = getApplication<ConfinanceApplication>()
         return if (type == AccountType.CHECKING_ACCOUNT) {

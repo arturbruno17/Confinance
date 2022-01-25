@@ -13,10 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import me.arturbruno.confinance.database.entities.asEntity
 import me.arturbruno.confinance.models.*
-import me.arturbruno.confinance.repositories.BankAccountRepository
-import me.arturbruno.confinance.repositories.CardPurchaseRepository
-import me.arturbruno.confinance.repositories.CreditCardRepository
-import me.arturbruno.confinance.repositories.InvoicePaymentRepository
+import me.arturbruno.confinance.repositories.*
 import me.arturbruno.confinance.views.Transaction
 import javax.inject.Inject
 
@@ -25,7 +22,8 @@ class CreditCardDetailsViewModel @Inject constructor(
     private val creditCardRepository: CreditCardRepository,
     private val cardPurchaseRepository: CardPurchaseRepository,
     private val bankAccountRepository: BankAccountRepository,
-    private val invoicePaymentRepository: InvoicePaymentRepository
+    private val invoicePaymentRepository: InvoicePaymentRepository,
+    private val bankTransactionRepository: BankTransactionRepository
 ) : ViewModel() {
 
     private var _creditCard = MutableLiveData<CreditCard>()
@@ -130,6 +128,28 @@ class CreditCardDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             cardPurchaseRepository.insertCardPurchase(cardPurchase.asEntity())
             creditCardRepository.updateCreditCard(creditCard.asEntity())
+        }
+    }
+
+    fun deleteTransaction(transaction: Transaction) {
+        when (transaction) {
+            is Transaction.CardPurchaseItem -> {
+                viewModelScope.launch {
+                    cardPurchaseRepository.deleteCardPurchase(transaction.data.asEntity())
+                }
+            }
+
+            is Transaction.BankTransactionItem -> {
+                viewModelScope.launch {
+                    bankTransactionRepository.deleteBankTransaction(transaction.data.asEntity())
+                }
+            }
+
+            is Transaction.InvoicePaymentItem -> {
+                viewModelScope.launch {
+                    invoicePaymentRepository.deleteInvoicePayment(transaction.data.asEntity())
+                }
+            }
         }
     }
 

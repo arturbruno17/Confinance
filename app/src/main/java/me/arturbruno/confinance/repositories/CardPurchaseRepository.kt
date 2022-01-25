@@ -24,4 +24,10 @@ class CardPurchaseRepository @Inject constructor(
             database.cardPurchaseHistoryDao().getAllCardPurchases()
         }
 
+    suspend fun deleteCardPurchase(cardPurchase: CardPurchase) {
+        withContext(ioDispatcher) {
+            database.cardPurchaseHistoryDao().deleteCardPurchase(cardPurchase)
+        }
+    }
+
 }
