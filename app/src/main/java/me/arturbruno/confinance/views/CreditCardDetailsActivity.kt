@@ -80,7 +80,7 @@ class CreditCardDetailsActivity : AppCompatActivity() {
         val transactionsAdapter = TransactionsAdapter()
 
         binding.transactionsList.apply {
-            layoutManager = LinearLayoutManager(this@CreditCardDetailsActivity, RecyclerView.VERTICAL, true)
+            layoutManager = LinearLayoutManager(this@CreditCardDetailsActivity, RecyclerView.VERTICAL, false)
             adapter = transactionsAdapter
         }
 

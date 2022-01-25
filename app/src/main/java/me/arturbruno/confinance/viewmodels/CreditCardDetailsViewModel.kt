@@ -105,7 +105,7 @@ class CreditCardDetailsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Default) {
             listOrdered = list.sortedBy {
                 it.date
-            }
+            }.asReversed()
         }.invokeOnCompletion {
             _mixedTransactions.postValue(listOrdered)
         }

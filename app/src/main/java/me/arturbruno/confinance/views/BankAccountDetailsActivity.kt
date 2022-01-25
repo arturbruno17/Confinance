@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -72,7 +73,7 @@ class BankAccountDetailsActivity : AppCompatActivity() {
         val transactionsAdapter = TransactionsAdapter()
 
         binding.transactionsList.apply {
-            layoutManager = LinearLayoutManager(this@BankAccountDetailsActivity, RecyclerView.VERTICAL, true)
+            layoutManager = LinearLayoutManager(this@BankAccountDetailsActivity, RecyclerView.VERTICAL, false)
             adapter = transactionsAdapter
         }
 

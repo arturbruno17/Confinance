@@ -13,6 +13,8 @@ import me.arturbruno.confinance.database.entities.asEntity
 import me.arturbruno.confinance.models.*
 import me.arturbruno.confinance.repositories.BankAccountRepository
 import me.arturbruno.confinance.repositories.BankTransactionRepository
+import me.arturbruno.confinance.repositories.CardPurchaseRepository
+import me.arturbruno.confinance.repositories.InvoicePaymentRepository
 import me.arturbruno.confinance.views.Transaction
 import javax.inject.Inject
 
@@ -20,7 +22,9 @@ import javax.inject.Inject
 class BankAccountDetailsViewModel @Inject constructor(
     application: Application,
     private val bankAccountRepository: BankAccountRepository,
-    private val bankTransactionRepository: BankTransactionRepository
+    private val bankTransactionRepository: BankTransactionRepository,
+    private val invoicePaymentRepository: InvoicePaymentRepository,
+    private val cardPurchaseRepository: CardPurchaseRepository,
 ) : AndroidViewModel(application) {
 
     private var _bankAccount = MutableLiveData<BankAccount>()
@@ -97,7 +101,7 @@ class BankAccountDetailsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Default) {
             listOrdered = list.sortedBy {
                 it.date
-            }
+            }.asReversed()
         }.invokeOnCompletion {
             _mixedTransactions.postValue(listOrdered)
         }

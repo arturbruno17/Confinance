@@ -83,7 +83,7 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         binding.transactionsList.apply {
-            layoutManager = LinearLayoutManager(this@DashboardActivity, RecyclerView.VERTICAL, true)
+            layoutManager = LinearLayoutManager(this@DashboardActivity, RecyclerView.VERTICAL, false)
             adapter = transactionsAdapter
         }
 
