@@ -65,4 +65,7 @@ dependencies {
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     kapt 'androidx.hilt:hilt-compiler:1.0.0'
 
+    // Swipe Decorator
+    implementation 'com.github.xabaras:RecyclerViewSwipeDecorator:1.3'
+
 }
