@@ -69,14 +69,18 @@ class BankAccountDetailsViewModel @Inject constructor(
     private suspend fun setBankTransactionHistory(list: List<me.arturbruno.confinance.database.entities.BankTransaction>?) {
         list?.let { list ->
             withContext(Dispatchers.Default) {
+                var incomes = 0.0
+                var expenses = 0.0
                 val bankTransactions = list.map {
                     if (it.value > 0) {
-                        _incomes.postValue(_incomes.value?.plus(it.value) ?: it.value)
+                        incomes += it.value
                     } else if (it.value < 0) {
-                        _expenses.postValue(_expenses.value?.plus(it.value) ?: it.value)
+                        expenses += -it.value
                     }
                     it.asModel()
                 }
+                _incomes.postValue(incomes)
+                _expenses.postValue(expenses)
                 _bankTransactions.postValue(bankTransactions)
             }
         }
@@ -85,10 +89,12 @@ class BankAccountDetailsViewModel @Inject constructor(
     private suspend fun setInvoicePayments(list: List<me.arturbruno.confinance.database.entities.InvoicePayment>?) {
         list?.let { list ->
             withContext(Dispatchers.Default) {
+                var expenses = expenses.value ?: 0.0
                 val invoicePayments = list.map {
-                    _expenses.postValue(_expenses.value?.plus(it.value) ?: it.value)
+                    expenses += it.value
                     it.asModel()
                 }
+                _expenses.postValue(expenses)
                 _invoicePayments.postValue(invoicePayments)
             }
         }
