@@ -38,4 +38,10 @@ class CreditCardRepository @Inject constructor(
         withContext(ioDispatcher) {
             database.creditCardDao().getAllCreditCardsWithTransactions(cardId)
         }
+
+    suspend fun updateCreditCardInvoiceById(id: Long, value: Double) {
+        withContext(ioDispatcher) {
+            database.creditCardDao().updateCreditCardInvoiceById(id, value)
+        }
+    }
 }

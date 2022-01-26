@@ -11,10 +11,7 @@ import me.arturbruno.confinance.ConfinanceApplication
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.database.entities.asEntity
 import me.arturbruno.confinance.models.*
-import me.arturbruno.confinance.repositories.BankAccountRepository
-import me.arturbruno.confinance.repositories.BankTransactionRepository
-import me.arturbruno.confinance.repositories.CardPurchaseRepository
-import me.arturbruno.confinance.repositories.InvoicePaymentRepository
+import me.arturbruno.confinance.repositories.*
 import me.arturbruno.confinance.views.Transaction
 import javax.inject.Inject
 
@@ -25,6 +22,7 @@ class BankAccountDetailsViewModel @Inject constructor(
     private val bankTransactionRepository: BankTransactionRepository,
     private val invoicePaymentRepository: InvoicePaymentRepository,
     private val cardPurchaseRepository: CardPurchaseRepository,
+    private val creditCardRepository: CreditCardRepository
 ) : AndroidViewModel(application) {
 
     private var _bankAccount = MutableLiveData<BankAccount>()
@@ -125,12 +123,15 @@ class BankAccountDetailsViewModel @Inject constructor(
             is Transaction.BankTransactionItem -> {
                 viewModelScope.launch {
                     bankTransactionRepository.deleteBankTransaction(transaction.data.asEntity())
+                    bankAccountRepository.updateBankAccountBalanceById(transaction.data.bankId, -transaction.data.value)
                 }
             }
 
             is Transaction.InvoicePaymentItem -> {
                 viewModelScope.launch {
                     invoicePaymentRepository.deleteInvoicePayment(transaction.data.asEntity())
+                    bankAccountRepository.updateBankAccountBalanceById(transaction.data.accountId, transaction.data.value)
+                    creditCardRepository.updateCreditCardInvoiceById(transaction.data.cardId, transaction.data.value)
                 }
             }
         }

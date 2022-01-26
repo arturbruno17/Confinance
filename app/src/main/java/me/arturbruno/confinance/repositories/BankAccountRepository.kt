@@ -24,6 +24,12 @@ class BankAccountRepository @Inject constructor(
         }
     }
 
+    suspend fun updateBankAccountBalanceById(id: Long, balance: Double) {
+        withContext(defaultDispatcher) {
+            database.bankAccountDao().updateBankAccountBalanceById(id, balance)
+        }
+    }
+
     suspend fun getAllBankAccounts() = withContext(defaultDispatcher) {
         database.bankAccountDao().getAllBankAccounts()
     }

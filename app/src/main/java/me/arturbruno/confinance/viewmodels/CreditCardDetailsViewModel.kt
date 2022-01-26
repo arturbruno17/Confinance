@@ -136,6 +136,7 @@ class CreditCardDetailsViewModel @Inject constructor(
             is Transaction.CardPurchaseItem -> {
                 viewModelScope.launch {
                     cardPurchaseRepository.deleteCardPurchase(transaction.data.asEntity())
+                    creditCardRepository.updateCreditCardInvoiceById(transaction.data.cardId, -transaction.data.value)
                 }
             }
 
@@ -148,6 +149,8 @@ class CreditCardDetailsViewModel @Inject constructor(
             is Transaction.InvoicePaymentItem -> {
                 viewModelScope.launch {
                     invoicePaymentRepository.deleteInvoicePayment(transaction.data.asEntity())
+                    bankAccountRepository.updateBankAccountBalanceById(transaction.data.accountId, transaction.data.value)
+                    creditCardRepository.updateCreditCardInvoiceById(transaction.data.cardId, transaction.data.value)
                 }
             }
         }
