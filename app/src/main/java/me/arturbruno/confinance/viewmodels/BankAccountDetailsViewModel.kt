@@ -41,6 +41,14 @@ class BankAccountDetailsViewModel @Inject constructor(
     val mixedTransactions: LiveData<List<Transaction>>
         get() = _mixedTransactions
 
+    private var _incomes = MutableLiveData(0.0)
+    val incomes: LiveData<Double>
+        get() = _incomes
+
+    private var _expenses = MutableLiveData(0.0)
+    val expenses: LiveData<Double>
+        get() = _expenses
+
     fun deleteBankAccount(bankId: Long) {
         viewModelScope.launch {
             bankAccountRepository.deleteBankAccount(bankId)
@@ -62,6 +70,11 @@ class BankAccountDetailsViewModel @Inject constructor(
         list?.let { list ->
             withContext(Dispatchers.Default) {
                 val bankTransactions = list.map {
+                    if (it.value > 0) {
+                        _incomes.postValue(_incomes.value?.plus(it.value) ?: it.value)
+                    } else if (it.value < 0) {
+                        _expenses.postValue(_expenses.value?.plus(it.value) ?: it.value)
+                    }
                     it.asModel()
                 }
                 _bankTransactions.postValue(bankTransactions)
@@ -73,6 +86,7 @@ class BankAccountDetailsViewModel @Inject constructor(
         list?.let { list ->
             withContext(Dispatchers.Default) {
                 val invoicePayments = list.map {
+                    _expenses.postValue(_expenses.value?.plus(it.value) ?: it.value)
                     it.asModel()
                 }
                 _invoicePayments.postValue(invoicePayments)
@@ -123,15 +137,24 @@ class BankAccountDetailsViewModel @Inject constructor(
             is Transaction.BankTransactionItem -> {
                 viewModelScope.launch {
                     bankTransactionRepository.deleteBankTransaction(transaction.data.asEntity())
-                    bankAccountRepository.updateBankAccountBalanceById(transaction.data.bankId, -transaction.data.value)
+                    bankAccountRepository.updateBankAccountBalanceById(
+                        transaction.data.bankId,
+                        -transaction.data.value
+                    )
                 }
             }
 
             is Transaction.InvoicePaymentItem -> {
                 viewModelScope.launch {
                     invoicePaymentRepository.deleteInvoicePayment(transaction.data.asEntity())
-                    bankAccountRepository.updateBankAccountBalanceById(transaction.data.accountId, transaction.data.value)
-                    creditCardRepository.updateCreditCardInvoiceById(transaction.data.cardId, transaction.data.value)
+                    bankAccountRepository.updateBankAccountBalanceById(
+                        transaction.data.accountId,
+                        transaction.data.value
+                    )
+                    creditCardRepository.updateCreditCardInvoiceById(
+                        transaction.data.cardId,
+                        transaction.data.value
+                    )
                 }
             }
         }

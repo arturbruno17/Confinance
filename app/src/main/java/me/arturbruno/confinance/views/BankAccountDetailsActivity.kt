@@ -231,6 +231,14 @@ class BankAccountDetailsActivity : AppCompatActivity() {
         viewModel.mixedTransactions.observe(this) {
             transactionsAdapter.submitList(it)
         }
+
+        viewModel.incomes.observe(this) {
+            binding.incomeValue.text = getString(R.string.amount, getCurrencySymbol(), it)
+        }
+
+        viewModel.expenses.observe(this) {
+            binding.expenseValue.text = getString(R.string.amount, getCurrencySymbol(), it)
+        }
     }
 
     override fun onStart() {
