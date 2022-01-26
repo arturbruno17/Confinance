@@ -72,8 +72,8 @@ class TransactionsAdapter :
             }
             is Transaction.InvoicePaymentItem -> {
                 holder.binding.apply {
-                    transactionIcon.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
-                    transactionIcon.backgroundTintList = context.getColorStateList(R.color.red)
+                    transactionIcon.setImageResource(R.drawable.ic_baseline_remove_24)
+                    transactionIcon.backgroundTintList = context.getColorStateList(R.color.yellow)
                     transactionName.text = context.getString(R.string.invoice_payment)
                     transactionValue.text = context.getString(
                         R.string.amount,
