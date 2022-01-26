@@ -22,4 +22,7 @@ interface CreditCardDao {
     @Query("SELECT * FROM credit_card WHERE id = :cardId")
     @Transaction
     fun getAllCreditCardsWithTransactions(cardId: Long): Flow<CreditCardAndCardPurchaseHistoryAndInvoicePayment>
+
+    @Query("UPDATE credit_card SET invoice = invoice + :value WHERE id = :id")
+    suspend fun updateCreditCardInvoiceById(id: Long, value: Double)
 }
