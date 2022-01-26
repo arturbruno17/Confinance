@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Confinance">
         <activity
+            android:name=".views.EditCreditCardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.EditBankAccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.CreditCardDetailsActivity"
             android:exported="false" />
         <activity

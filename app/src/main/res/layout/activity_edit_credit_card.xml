@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/top_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_baseline_clear_24"
+                app:title="@string/edit_informations"
+                app:titleTextAppearance="?attr/textAppearanceHeadline6"
+                app:titleTextColor="@color/black_text" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/account_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/account_information"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_app_bar" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/name"
+            app:layout_constraintTop_toBottomOf="@id/account_information">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/black_text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_bank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:hint="@string/bank"
+            app:layout_constraintTop_toBottomOf="@id/input_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_bank_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/black_text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/card_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/card_information"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_bank" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_limit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/limit"
+            app:layout_constraintTop_toBottomOf="@id/card_information">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_limit_edit_text"
+                android:layout_width="match_parent"
+                android:inputType="numberDecimal"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/black_text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_due_date"
+            android:layout_width="match_parent"
+            app:startIconDrawable="@drawable/ic_baseline_calendar_today_24"
+            app:startIconTint="@color/dark_gray"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/due_date"
+            app:layout_constraintTop_toBottomOf="@id/input_limit">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_due_date_edit_text"
+                android:layout_width="match_parent"
+                android:focusable="false"
+                android:inputType="none"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="@color/black_text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/create_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="16dp"
+            android:paddingVertical="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save_credit_card"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

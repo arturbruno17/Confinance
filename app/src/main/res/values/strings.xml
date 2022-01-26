@@ -51,4 +51,6 @@
     <string name="pay_invoice">Pagar fatura</string>
     <string name="to_pay">Pagar</string>
     <string name="date_time">%d.%d.%d | %d:%d</string>
+    <string name="save_bank_account">Salvar conta</string>
+    <string name="save_credit_card">Salvar cartão</string>
 </resources>
