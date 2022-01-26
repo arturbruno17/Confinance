@@ -1,5 +1,6 @@
 package me.arturbruno.confinance.views
 
+import android.content.Intent
 import android.graphics.Canvas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -157,6 +158,12 @@ class CreditCardDetailsActivity : AppCompatActivity() {
             }
         }
 
+        binding.editInformations.setOnClickListener {
+            intent = Intent(this, EditCreditCardActivity::class.java).apply {
+                putExtra("credit_card", viewModel.creditCard.value)
+            }
+            startActivity(intent)
+        }
 
         binding.fabNewBuy.setOnClickListener {
             MaterialAlertDialogBuilder(this)

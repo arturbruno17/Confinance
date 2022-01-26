@@ -1,5 +1,6 @@
 package me.arturbruno.confinance.views
 
+import android.content.Intent
 import android.graphics.Canvas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -131,6 +132,13 @@ class BankAccountDetailsActivity : AppCompatActivity() {
 
         binding.toolbar.setNavigationOnClickListener {
             finish()
+        }
+
+        binding.editInformations.setOnClickListener {
+            intent = Intent(this, EditBankAccountActivity::class.java).apply {
+                putExtra("bank_account", viewModel.bankAccount.value)
+            }
+            startActivity(intent)
         }
 
         binding.fabTransaction.setOnClickListener {

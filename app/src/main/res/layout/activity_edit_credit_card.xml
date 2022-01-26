@@ -128,7 +128,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/create_card"
+            android:id="@+id/save_card"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginHorizontal="16dp"
             android:paddingVertical="16dp"
