@@ -17,4 +17,7 @@ interface InvoicePaymentDao {
 
     @Query("SELECT * FROM invoice_payment")
     fun getAllInvoicePayments(): Flow<List<InvoicePayment>>
+
+    @Query("DELETE FROM invoice_payment WHERE card_id = :cardId")
+    suspend fun deleteInvoicePaymentsByCardId(cardId: Long)
 }

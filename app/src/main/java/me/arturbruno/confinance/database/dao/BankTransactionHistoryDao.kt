@@ -18,4 +18,7 @@ interface BankTransactionHistoryDao {
 
     @Query("SELECT * FROM bank_transaction_history")
     fun getAllBankTransactions(): Flow<List<BankTransaction>>
+
+    @Query("DELETE FROM bank_transaction_history WHERE bank_id = :bankId")
+    suspend fun deleteBankTransactionsByBankId(bankId: Long)
 }

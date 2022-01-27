@@ -18,4 +18,7 @@ interface CardPurchaseHistoryDao {
 
     @Query("SELECT * FROM card_purchase_history")
     fun getAllCardPurchases(): Flow<List<CardPurchase>>
+
+    @Query("DELETE FROM card_purchase_history WHERE card_id = :cardId")
+    suspend fun deleteCardPurchasesByCardId(cardId: Long)
 }
