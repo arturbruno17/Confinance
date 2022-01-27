@@ -1,6 +1,7 @@
 package me.arturbruno.confinance.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -58,12 +59,16 @@ class BankAccountDetailsViewModel @Inject constructor(
 
     fun getBankAccountWithTransactions(bankId: Long) {
         viewModelScope.launch {
-            bankAccountRepository.getBankAccountWithTransactions(bankId)
-                .collect {
-                    _bankAccount.postValue(it.bankAccount.asModel())
-                    setBankTransactionHistory(it.bankTransactionHistory)
-                    setInvoicePayments(it.invoicePayment)
-                }
+            try {
+                bankAccountRepository.getBankAccountWithTransactions(bankId)
+                    .collect {
+                        _bankAccount.postValue(it.bankAccount.asModel())
+                        setBankTransactionHistory(it.bankTransactionHistory)
+                        setInvoicePayments(it.invoicePayment)
+                    }
+            } catch(e: Exception) {
+                Log.getStackTraceString(e)
+            }
         }
     }
 

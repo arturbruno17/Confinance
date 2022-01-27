@@ -1,5 +1,6 @@
 package me.arturbruno.confinance.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -56,10 +57,14 @@ class CreditCardDetailsViewModel @Inject constructor(
 
     fun getAllCreditCardsWithTransactions(cardId: Long) {
         viewModelScope.launch {
-            creditCardRepository.getAllCreditCardsWithTransactions(cardId).collect {
-                _creditCard.postValue(it.creditCard.asModel())
-                setCardPurchaseHistory(it.cardPurchaseHistory)
-                setInvoicePayments(it.invoicePayment)
+            try {
+                creditCardRepository.getAllCreditCardsWithTransactions(cardId).collect {
+                    _creditCard.postValue(it.creditCard.asModel())
+                    setCardPurchaseHistory(it.cardPurchaseHistory)
+                    setInvoicePayments(it.invoicePayment)
+                }
+            } catch (e: Exception) {
+                Log.getStackTraceString(e)
             }
         }
     }
