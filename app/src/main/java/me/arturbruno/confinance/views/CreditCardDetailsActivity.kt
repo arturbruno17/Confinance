@@ -127,6 +127,9 @@ class CreditCardDetailsActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+        viewModel.getAllCreditCardsWithTransactions(intent.getLongExtra("id", -1))
+        viewModel.getAllBankAccounts()
+
         touchHelper.attachToRecyclerView(binding.transactionsList)
 
         val transactionsAdapter = TransactionsAdapter()
@@ -254,12 +257,6 @@ class CreditCardDetailsActivity : AppCompatActivity() {
         viewModel.mixedTransactions.observe(this) {
             transactionsAdapter.submitList(it)
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel.getAllCreditCardsWithTransactions(intent.getLongExtra("id", -1))
-        viewModel.getAllBankAccounts()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

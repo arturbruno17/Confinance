@@ -88,6 +88,12 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         setObservers()
+
+        viewModel.getAllBankAccounts()
+        viewModel.getAllCreditCards()
+        viewModel.getAllBankTransactions()
+        viewModel.getAllCardPurchases()
+        viewModel.getAllInvoicePayments()
     }
 
     private fun setListeners() {
@@ -162,14 +168,5 @@ class DashboardActivity : AppCompatActivity() {
         viewModel.expenses.observe(this) {
             binding.expenseValue.text = getString(R.string.amount, getCurrencySymbol(), it)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getAllBankAccounts()
-        viewModel.getAllCreditCards()
-        viewModel.getAllBankTransactions()
-        viewModel.getAllCardPurchases()
-        viewModel.getAllInvoicePayments()
     }
 }

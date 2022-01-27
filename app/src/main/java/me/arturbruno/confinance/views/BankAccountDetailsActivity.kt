@@ -11,12 +11,14 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import kotlinx.coroutines.cancel
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -119,6 +121,8 @@ class BankAccountDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
+        viewModel.getBankAccountWithTransactions(intent.getLongExtra("id", -1))
 
         touchHelper.attachToRecyclerView(binding.transactionsList)
 
@@ -247,11 +251,6 @@ class BankAccountDetailsActivity : AppCompatActivity() {
         viewModel.expenses.observe(this) {
             binding.expenseValue.text = getString(R.string.amount, getCurrencySymbol(), it)
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel.getBankAccountWithTransactions(intent.getLongExtra("id", -1))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

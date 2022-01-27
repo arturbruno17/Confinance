@@ -3,10 +3,8 @@ package me.arturbruno.confinance.viewmodels
 import android.app.Application
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import me.arturbruno.confinance.ConfinanceApplication
 import me.arturbruno.confinance.R
 import me.arturbruno.confinance.database.entities.asEntity
@@ -64,6 +62,8 @@ class BankAccountDetailsViewModel @Inject constructor(
                     setBankTransactionHistory(it.bankTransactionHistory)
                     setInvoicePayments(it.invoicePayment)
                 }
+        }.runCatching {
+            cancel()
         }
     }
 
@@ -174,6 +174,12 @@ class BankAccountDetailsViewModel @Inject constructor(
         } else {
             application.getString(R.string.savings_account)
         }
+    }
+
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelScope.cancel()
     }
 
 }

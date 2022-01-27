@@ -1,16 +1,13 @@
 package me.arturbruno.confinance.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import me.arturbruno.confinance.database.entities.asEntity
 import me.arturbruno.confinance.models.*
 import me.arturbruno.confinance.repositories.*
@@ -56,11 +53,14 @@ class CreditCardDetailsViewModel @Inject constructor(
 
     fun getAllCreditCardsWithTransactions(cardId: Long) {
         viewModelScope.launch {
-            creditCardRepository.getAllCreditCardsWithTransactions(cardId).collect {
-                _creditCard.postValue(it.creditCard.asModel())
-                setCardPurchaseHistory(it.cardPurchaseHistory)
-                setInvoicePayments(it.invoicePayment)
-            }
+            creditCardRepository.getAllCreditCardsWithTransactions(cardId)
+                .collect {
+                    _creditCard.postValue(it.creditCard.asModel())
+                    setCardPurchaseHistory(it.cardPurchaseHistory)
+                    setInvoicePayments(it.invoicePayment)
+                }
+        }.runCatching {
+            cancel()
         }
     }
 
@@ -138,7 +138,10 @@ class CreditCardDetailsViewModel @Inject constructor(
             is Transaction.CardPurchaseItem -> {
                 viewModelScope.launch {
                     cardPurchaseRepository.deleteCardPurchase(transaction.data.asEntity())
-                    creditCardRepository.updateCreditCardInvoiceById(transaction.data.cardId, -transaction.data.value)
+                    creditCardRepository.updateCreditCardInvoiceById(
+                        transaction.data.cardId,
+                        -transaction.data.value
+                    )
                 }
             }
 
@@ -151,8 +154,14 @@ class CreditCardDetailsViewModel @Inject constructor(
             is Transaction.InvoicePaymentItem -> {
                 viewModelScope.launch {
                     invoicePaymentRepository.deleteInvoicePayment(transaction.data.asEntity())
-                    bankAccountRepository.updateBankAccountBalanceById(transaction.data.accountId, transaction.data.value)
-                    creditCardRepository.updateCreditCardInvoiceById(transaction.data.cardId, transaction.data.value)
+                    bankAccountRepository.updateBankAccountBalanceById(
+                        transaction.data.accountId,
+                        transaction.data.value
+                    )
+                    creditCardRepository.updateCreditCardInvoiceById(
+                        transaction.data.cardId,
+                        transaction.data.value
+                    )
                 }
             }
         }
@@ -168,6 +177,11 @@ class CreditCardDetailsViewModel @Inject constructor(
             creditCardRepository.updateCreditCard(creditCard.asEntity())
             bankAccountRepository.updateBankAccount(bankAccount.asEntity())
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelScope.cancel()
     }
 
 }
