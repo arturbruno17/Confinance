@@ -30,4 +30,10 @@ class BankTransactionRepository @Inject constructor(
         }
     }
 
+    suspend fun deleteBankTransactionsByBankId(bankId: Long) {
+        withContext(ioDispatcher) {
+            database.bankTransactionHistoryDao().deleteBankTransactionsByBankId(bankId)
+        }
+    }
+
 }

@@ -52,6 +52,7 @@ class BankAccountDetailsViewModel @Inject constructor(
     fun deleteBankAccount(bankId: Long) {
         viewModelScope.launch {
             bankAccountRepository.deleteBankAccount(bankId)
+            bankTransactionRepository.deleteBankTransactionsByBankId(bankId)
         }
     }
 

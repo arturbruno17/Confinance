@@ -30,4 +30,10 @@ class CardPurchaseRepository @Inject constructor(
         }
     }
 
+    suspend fun deleteCardPurchasesByCardId(cardId: Long) {
+        withContext(ioDispatcher) {
+            database.cardPurchaseHistoryDao().deleteCardPurchasesByCardId(cardId)
+        }
+    }
+
 }

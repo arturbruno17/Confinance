@@ -49,6 +49,8 @@ class CreditCardDetailsViewModel @Inject constructor(
     fun deleteCreditCard(cardId: Long) {
         viewModelScope.launch {
             creditCardRepository.deleteCreditCard(cardId)
+            cardPurchaseRepository.deleteCardPurchasesByCardId(cardId)
+            invoicePaymentRepository.deleteInvoicePaymentsByCardId(cardId)
         }
     }
 

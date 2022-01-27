@@ -30,4 +30,10 @@ class InvoicePaymentRepository @Inject constructor(
         }
     }
 
+    suspend fun deleteInvoicePaymentsByCardId(cardId: Long) {
+        withContext(ioDispatcher) {
+            database.invoicePaymentDao().deleteInvoicePaymentsByCardId(cardId)
+        }
+    }
+
 }
