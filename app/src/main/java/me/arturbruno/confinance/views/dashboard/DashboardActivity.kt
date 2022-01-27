@@ -24,6 +24,7 @@ class DashboardActivity : AppCompatActivity() {
     }
     private lateinit var walletsAdapter: WalletsAdapter
     private lateinit var transactionsAdapter: TransactionsAdapter
+    private lateinit var walletItemDecoration: WalletItemDecoration
     private val viewModel: DashboardViewModel by viewModels()
 
     private val rotateOpenFab: Animation by lazy {
@@ -74,12 +75,14 @@ class DashboardActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+
+        walletItemDecoration = WalletItemDecoration()
         transactionsAdapter = TransactionsAdapter()
 
         binding.walletsList.apply {
             layoutManager = LinearLayoutManager(this@DashboardActivity, RecyclerView.HORIZONTAL, false)
             adapter = walletsAdapter
-            addItemDecoration(WalletItemDecoration())
+            addItemDecoration(walletItemDecoration)
         }
 
         binding.transactionsList.apply {
@@ -145,6 +148,10 @@ class DashboardActivity : AppCompatActivity() {
 
         viewModel.mixedData.observe(this) {
             walletsAdapter.submitList(it)
+            binding.walletsList.apply {
+                removeItemDecoration(walletItemDecoration)
+                addItemDecoration(walletItemDecoration)
+            }
 
             viewModel.getTotalBalance()
             viewModel.getTotalIncomes()
